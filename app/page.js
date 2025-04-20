@@ -108,7 +108,7 @@ import LandingPage from "../components/pages/landing/landing.js";
 export default function hell0() {
   return (
     <>
-      hello
+      <p>hello</p>
       <h1> hello 2</h1>
       <LandingPage />
     </>)
