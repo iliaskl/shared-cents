@@ -1,0 +1,14 @@
+body {
+    background-color: #F6E3CE;
+    color: black;
+}
+
+h1 {
+    font-size: 36pt;
+    color: red;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.default-header {
+    font-size: 50pt;
+}
