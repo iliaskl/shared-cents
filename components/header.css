@@ -1,0 +1,20 @@
+.header-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 70px;
+    padding: 20px;
+}
+
+h1{
+    font-size: 2rem;
+    font-weight: bold;
+    padding-left: 50px;
+    
+}
+
+ul{
+    display: flex;
+    gap: 30px;
+}
