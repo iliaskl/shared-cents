@@ -1,8 +1,3 @@
-import Groups from "@/components/pages/groups/groups";
-
 export default function GroupsPage() {
-    return (<div>
-        <Groups />
-    </div>);
+    return <h1>This is the Groups Page</h1>;
 }
-

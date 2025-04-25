@@ -4,7 +4,7 @@ export default function Footer() {
 
     return(
         <footer>
-            <p>Copy {new Date()}</p>
+            <p>Copy {new Date().toString()}</p>
         </footer>
     );
 
