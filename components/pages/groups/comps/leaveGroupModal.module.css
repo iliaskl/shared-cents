@@ -1,0 +1,132 @@
+/*
+* leaveGroupModal.module.css
+* Styling for the Leave Group confirmation modal
+* Created by: Ilias Kladakis
+* Date: April 2025
+*
+* This file contains styles for the leave group confirmation dialog including:
+* - Modal overlay and container
+* - Header and content styling
+* - Confirmation and warning text
+* - Action buttons (cancel and confirm)
+*/
+
+/* Full-screen semi-transparent overlay that darkens the background */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* White container for the modal content with rounded corners */
+.modalContent {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Header section with title and close button */
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* Modal title styling */
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Close button (X) in the top-right corner */
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #777;
+}
+
+/* Hover effect for close button */
+.closeButton:hover {
+    color: #333;
+}
+
+/* Main content area of the modal */
+.modalBody {
+    padding: 1.5rem;
+}
+
+/* Primary confirmation message */
+.confirmText {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Highlighted group name in the confirmation message */
+.groupName {
+    font-weight: 600;
+}
+
+/* Secondary warning text about consequences */
+.warningText {
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* Container for action buttons at the bottom */
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+/* Neutral button for canceling the action */
+.cancelButton {
+    padding: 0.5rem 1rem;
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+/* Hover state for cancel button */
+.cancelButton:hover {
+    background-color: #e5e5e5;
+}
+
+/* Destructive button for confirming the leave action */
+.confirmButton {
+    padding: 0.5rem 1rem;
+    background-color: #A63A50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+/* Hover state for confirm button */
+.confirmButton:hover {
+    background-color: #a93048;
+}

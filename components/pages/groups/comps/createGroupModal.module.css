@@ -1,0 +1,262 @@
+/*
+* createGroupModal.module.css
+* Styles for the CreateGroupModal component
+* Created by: Ilias Kladakis
+* Date: April 2025
+*
+* This stylesheet defines the visual appearance of the group creation modal including:
+* - Modal overlay and container positioning
+* - Form element styling and layout
+* - Interactive elements like buttons and input fields
+* - Search results dropdown and member list styling
+*/
+
+/* Full-screen semi-transparent overlay for the modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* White card container for modal content */
+.modalContent {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Header bar containing title and close button */
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* Modal title styling */
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #2C1500;
+}
+
+/* Close (X) button styling */
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #777;
+}
+
+/* Hover effect for close button */
+.closeButton:hover {
+    color: #2C1500;
+    background-color: #F6E4CE;
+    border-radius: 50%;
+}
+
+/* Form container with spacing */
+.form {
+    padding: 1.5rem;
+}
+
+/* Container for each form field */
+.formGroup {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+/* Label styling for form fields */
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2C1500;
+}
+
+/* Container for label with counter */
+.labelContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Counter showing number of friends added */
+.friendCounter {
+    font-size: 0.8rem;
+    color: #2C1500;
+}
+
+/* Form input fields and dropdown selects */
+.formGroup input,
+.formGroup select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #2C1500;
+}
+
+/* Focus state for form inputs */
+.formGroup input:focus,
+.formGroup select:focus {
+    outline: none;
+    border-color: #2C1500;
+    background-color: #F9F3EA;
+}
+
+/* Character counter for the name input */
+.charCount {
+    text-align: right;
+    font-size: 0.8rem;
+    color: #2C1500;
+    margin-top: 0.25rem;
+}
+
+/* Dropdown container for search results */
+.searchResults {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 160px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual search result item */
+.searchResultItem {
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #2C1500;
+}
+
+/* Hover effect for search results */
+.searchResultItem:hover {
+    background-color: #F6E4CE;
+}
+
+/* Message shown when no matching friends are found */
+.noResults {
+    padding: 0.75rem;
+    color: #2C1500;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+/* Container for the group members list */
+.membersList {
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+/* Individual member list item */
+.memberItem {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    background-color: #F6E4CE;
+    color: #2C1500;
+}
+
+/* Remove margin from last member item */
+.memberItem:last-child {
+    margin-bottom: 0;
+}
+
+/* Message shown when no friends are added */
+.emptyState {
+    padding: 0.75rem;
+    color: #2C1500;
+    text-align: center;
+}
+
+/* Container for profile image */
+.profileImage {
+    width: 30px;
+    height: 30px;
+    margin-right: 0.75rem;
+    position: relative;
+}
+
+/* Placeholder circle for profile images */
+.imagePlaceholder {
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+    border-radius: 50%;
+}
+
+/* Badge displayed next to creator's name */
+.creatorBadge {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: #2C1500;
+    font-style: italic;
+}
+
+/* Button to remove a selected friend */
+.removeFriendButton {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #A63A50;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+/* Hover effect for remove friend button */
+.removeFriendButton:hover {
+    background-color: #f3d5d9;
+    border-radius: 50%;
+}
+
+/* Primary action button at the bottom */
+.createButton {
+    background-color: #f3cda6;
+    color: #2C1500;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+/* Hover effect for create button */
+.createButton:hover {
+    background-color: rgb(224, 188, 153);
+}
