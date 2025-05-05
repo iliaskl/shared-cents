@@ -13,10 +13,19 @@ export default function AboutPage() {
                 marginTop: '2rem',
                 paddingTop: '1rem'
             }}></div>
-            <p style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>Group members:</p>
-            <li style={{ textAlign: 'center' }}>Ilias K. (project manager)</li>
-            <li style={{ textAlign: 'center' }}>Kenny L.</li>
-            <li style={{ textAlign: 'center' }}>Tai N.</li>
+            <p style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '2rem' }}>Group members:</p>
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 1fr',
+                maxWidth: '600px',
+                margin: '0 auto',
+                textAlign: 'center',
+                fontSize: '1rem'
+            }}>
+                <span>Ilias K. (project manager)</span>
+                <span>Kenny L.</span>
+                <span>Tai N.</span>
+            </div>
         </div>
     );
 }
