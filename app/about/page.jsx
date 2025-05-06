@@ -7,6 +7,7 @@ export default function AboutPage() {
             </h1>
             <p style={{ textAlign: 'center' }}>Welcome to our website. This website is a group project started Spring of 2025.</p>
             <p style={{ textAlign: 'center' }}>Our mission is to help groups of people settle finance sharing in an organized fashion.</p>
+
             <div style={{
                 textAlign: 'center',
                 borderTop: '2px solid #333',
@@ -26,6 +27,9 @@ export default function AboutPage() {
                 <span>Kenny L.</span>
                 <span>Tai N.</span>
             </div>
+
+            <p style={{ textAlign: 'center', marginTop: '2rem' }}>You can contact us at:</p>
+            <p style={{ textAlign: 'center' }}>sharedcents@gmail.com</p>
         </div>
     );
 }
