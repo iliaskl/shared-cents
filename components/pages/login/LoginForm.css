@@ -1,0 +1,50 @@
+.login-form-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 20px;
+    text-align: center;
+    
+  }
+  .body{
+    background-color: #e6d0b1;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .login-form input {
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .login-form button {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .signup-link {
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+  
+
+  h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-left: 0;
+  }
+
+  .logo-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  

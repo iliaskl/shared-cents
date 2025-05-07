@@ -103,14 +103,27 @@
 // }
 
 
-import LandingPage from "../components/pages/landing/landing.js";
+"use client";
+import { useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 
-export default function hell0() {
-  return (
-    <>
-      <p>hello</p>
-      <h1> hello 2</h1>
-      <LandingPage />
-    </>)
+export default function LandingPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push("/home"); 
+      } else {
+        router.push("/login"); 
+      }
+    });
+  }, [router]);
+
+  return (<div style={{ backgroundColor: '#e6d0b1', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <p>Loading...</p>
+            </div>);
 }
-

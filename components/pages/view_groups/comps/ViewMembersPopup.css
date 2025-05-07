@@ -1,0 +1,134 @@
+/**
+ * ViewMembersPopup.css
+ * Styling for the View Members popup
+ * 
+ * Created by: Ilias Kladakis
+ * Date: May 2025
+ */
+
+.view-members-popup {
+    width: 400px;
+    max-width: 90vw;
+}
+
+.members-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.member-item:last-child {
+    border-bottom: none;
+}
+
+.member-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.member-avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.member-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.member-name {
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+}
+
+.member-status {
+    margin-top: 3px;
+}
+
+.creator-badge {
+    background-color: #f5f5f5;
+    color: #757575;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.settlement-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #4caf50;
+    font-size: 14px;
+}
+
+.settled-icon {
+    color: #4caf50;
+}
+
+.no-members {
+    padding: 20px;
+    text-align: center;
+    color: #757575;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.leave-group-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.leave-group-button:hover:not(:disabled) {
+    background-color: #d32f2f;
+}
+
+.leave-group-button.disabled {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    cursor: not-allowed;
+}
+
+.leave-group-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}

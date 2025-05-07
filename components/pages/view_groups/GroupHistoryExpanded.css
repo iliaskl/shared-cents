@@ -1,0 +1,318 @@
+/**
+ * GroupHistoryExpanded.css
+ * Styling for the expanded group history view
+ * 
+ * Created by: Ilias Kladakis
+ * Date: May 2025
+ */
+
+.group-history-expanded {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.back-button {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    font-size: 15px;
+    color: #555;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.page-title {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.history-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.filter-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f5f5f5;
+    padding: 8px 15px;
+    border-radius: 6px;
+}
+
+.filter-control svg {
+    color: #555;
+}
+
+.member-filter {
+    background: none;
+    border: none;
+    font-size: 15px;
+    color: #333;
+    padding: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.sort-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f5f5f5;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #555;
+    transition: background-color 0.2s;
+}
+
+.sort-button:hover {
+    background-color: #e0e0e0;
+}
+
+.expenses-table-container {
+    flex: 1;
+    overflow-x: auto;
+}
+
+.expenses-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.expenses-table th {
+    background-color: #f9f9f9;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #555;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.expenses-table td {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+}
+
+.expense-row:hover {
+    background-color: #f9f9f9;
+}
+
+.expense-date {
+    color: #757575;
+    white-space: nowrap;
+}
+
+.payer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.payer-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.payer-avatar-placeholder {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.expense-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.expense-amount {
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
+}
+
+.splits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.split-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.split-name {
+    color: #555;
+}
+
+.split-details {
+    display: flex;
+    gap: 10px;
+}
+
+.split-percentage {
+    color: #757575;
+    min-width: 50px;
+    text-align: right;
+}
+
+.split-amount {
+    color: #333;
+    font-weight: 500;
+    min-width: 70px;
+    text-align: right;
+}
+
+.no-expenses {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    color: #757575;
+    text-align: center;
+    padding: 40px 0;
+}
+
+.loading-state,
+.error-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 40px 0;
+}
+
+.loading-state {
+    color: #757575;
+}
+
+.error-state {
+    color: #f44336;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.pagination-button {
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: #f5f5f5;
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    font-size: 14px;
+    color: #757575;
+}
+
+@media (max-width: 900px) {
+    .history-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-control,
+    .sort-button {
+        width: 100%;
+    }
+
+    .expenses-table th,
+    .expenses-table td {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .expenses-table th:nth-child(5),
+    .expenses-table td:nth-child(5) {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .page-title {
+        font-size: 20px;
+    }
+
+    .expenses-table th:nth-child(1),
+    .expenses-table td:nth-child(1) {
+        display: none;
+    }
+}
