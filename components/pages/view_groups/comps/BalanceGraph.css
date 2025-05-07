@@ -1,0 +1,145 @@
+/**
+ * BalanceGraph.css
+ * Styling for the Balance Graph component
+ * 
+ * Created by: Ilias Kladakis
+ * Date: May 2025
+ */
+
+.balance-graph {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.graph-legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #757575;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+}
+
+.legend-color.owing {
+    background-color: #f44336;
+}
+
+.legend-color.owed {
+    background-color: #2196f3;
+}
+
+.legend-color.settled {
+    background-color: #4caf50;
+}
+
+.graph-container {
+    flex: 1;
+    position: relative;
+    padding: 10px 0;
+    overflow: hidden;
+    /* Changed from overflow-y: auto to overflow: hidden */
+}
+
+.center-line {
+    position: absolute;
+    top: 10px;
+    /* Adjust to match padding */
+    bottom: 10px;
+    /* Adjust to match padding */
+    left: 50%;
+    width: 1px;
+    background-color: #e0e0e0;
+    z-index: 0;
+}
+
+/* Add a wrapper for scrollable content */
+.graph-content {
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.balance-row {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.name-cell {
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.name-cell.current-user {
+    font-weight: 600;
+    color: #333;
+}
+
+.graph-cell {
+    position: relative;
+    height: 20px;
+    width: 100%;
+}
+
+.amount-cell {
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    text-align: right;
+}
+
+.bar {
+    position: absolute;
+    height: 20px;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.bar.owing {
+    background-color: #f44336;
+}
+
+.bar.owed {
+    background-color: #2196f3;
+}
+
+.bar.settled {
+    background-color: #4caf50;
+    width: 10px;
+    height: 20px;
+    border-radius: 10px;
+    position: absolute;
+    left: calc(50% - 5px);
+    top: 0;
+}
+
+.no-members {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #757575;
+    text-align: center;
+}
