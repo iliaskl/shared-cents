@@ -10,6 +10,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { MoreVertical, PlusCircle, Users, Calendar, DollarSign } from 'lucide-react';
+import Header from '../../../components/header';
+import Footer from '../../../components/footer';
 import AddExpensePopup from './comps/AddExpensePopup';
 import GroupHistory from './comps/GroupHistory';
 import BalanceGraph from './comps/BalanceGraph';
@@ -41,6 +43,20 @@ const ViewGroup = () => {
     const [currentUserId, setCurrentUserId] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [userName, setUserName] = useState(""); // Added for header
+
+    // Add class to html and body for consistent layout
+    useEffect(() => {
+        // Add classes to html and body when component mounts
+        document.documentElement.classList.add('full-width');
+        document.body.classList.add('full-width');
+
+        // Remove classes when component unmounts
+        return () => {
+            document.documentElement.classList.remove('full-width');
+            document.body.classList.remove('full-width');
+        };
+    }, []);
 
     // Fetch group data when component mounts or groupId changes
     useEffect(() => {
@@ -71,6 +87,7 @@ const ViewGroup = () => {
                         const userId = localStorage.getItem('userId') || "John";
                         console.log('Current user ID:', userId);
                         setCurrentUserId(userId);
+                        setUserName(userId); // Set user name for header
 
                         // Set group info
                         setGroup({
@@ -135,6 +152,7 @@ const ViewGroup = () => {
                 const userId = localStorage.getItem('userId') || "John";
                 console.log('Current user ID:', userId);
                 setCurrentUserId(userId);
+                setUserName(userId); // Set user name for header
                 setIsCreator(groupData.createdBy === userId || groupData.creatorId === userId);
 
                 // Set members from the API response
@@ -298,20 +316,6 @@ const ViewGroup = () => {
         toggleSettleGroup();
     };
 
-    // Render loading state if group data is not yet loaded
-    if (loading) {
-        return <div className="loading">Loading group details...</div>;
-    }
-
-    // Render error state if there was an error
-    if (error && !group) {
-        return <div className="error">{error}</div>;
-    }
-
-    if (!group) {
-        return <div className="error">Group not found</div>;
-    }
-
     // Determine balance status class
     const getBalanceStatusClass = () => {
         if (userBalance === 0) return 'settled';
@@ -349,113 +353,128 @@ const ViewGroup = () => {
     };
 
     return (
-        <div className="view-group-container">
-            {/* Show error banner if there's an error but we still have data */}
-            {error && (
-                <div className="error-banner">
-                    <span>{error}</span>
-                    <button onClick={() => setError(null)}>Dismiss</button>
-                </div>
-            )}
+        <div className="page-container">
+            <Header name={userName} />
 
-            <div className="group-header">
-                <h1 className="group-name">{group.name}</h1>
-                <button className="menu-button" onClick={toggleGroupMenu}>
-                    <MoreVertical size={24} />
-                </button>
-                {showGroupMenu && (
-                    <GroupMenu
-                        onViewMembers={toggleViewMembers}
-                        onInviteMembers={toggleInviteMembers}
-                        onRemoveMembers={isCreator ? toggleRemoveMembers : null}
-                        onSettleGroup={toggleSettleGroup}
-                        creationDate={group.createdAt}
+            <div className="view-group-container">
+                {/* Show error banner if there's an error but we still have data */}
+                {error && (
+                    <div className="error-banner">
+                        <span>{error}</span>
+                        <button onClick={() => setError(null)}>Dismiss</button>
+                    </div>
+                )}
+
+                {loading ? (
+                    <div className="loading">Loading group details...</div>
+                ) : !group ? (
+                    <div className="error">Group not found</div>
+                ) : (
+                    <>
+                        <div className="group-header">
+                            <h1 className="group-name">{group.name}</h1>
+                            <button className="menu-button" onClick={toggleGroupMenu}>
+                                <MoreVertical size={24} />
+                            </button>
+                            {showGroupMenu && (
+                                <GroupMenu
+                                    onViewMembers={toggleViewMembers}
+                                    onInviteMembers={toggleInviteMembers}
+                                    onRemoveMembers={isCreator ? toggleRemoveMembers : null}
+                                    onSettleGroup={toggleSettleGroup}
+                                    creationDate={group.createdAt}
+                                />
+                            )}
+                        </div>
+
+                        <div className="group-content">
+                            <div className="left-section">
+                                <button className="add-expense-button" onClick={toggleAddExpense}>
+                                    <PlusCircle size={20} />
+                                    Add Group Expense
+                                </button>
+
+                                <div className="group-history-container">
+                                    <GroupHistory expenses={expenses} members={members} groupId={groupId} />
+                                </div>
+                            </div>
+
+                            <div className="right-section">
+                                <div className={`balance-info ${getBalanceStatusClass()}`}>
+                                    <h2>Your Balance</h2>
+                                    <div className="balance-amount">{formatCurrency(Math.abs(userBalance))}</div>
+                                    <div className="balance-status">
+                                        {userBalance === 0
+                                            ? 'Settled'
+                                            : userBalance > 0
+                                                ? 'You are owed'
+                                                : 'You owe'}
+                                    </div>
+                                </div>
+
+                                <div className="balance-graph-container">
+                                    <h2>Group Balances</h2>
+                                    <BalanceGraph
+                                        members={members}
+                                        currentUserId={currentUserId}
+                                        currency={group?.currency || 'USD'}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )}
+
+                {/* Popups */}
+                {showAddExpense && (
+                    <AddExpensePopup
+                        onClose={toggleAddExpense}
+                        onConfirm={handleAddExpense}
+                        members={members}
+                    />
+                )}
+
+                {showViewMembers && (
+                    <ViewMembersPopup
+                        onClose={toggleViewMembers}
+                        members={members}
+                        currentUserId={currentUserId}
+                        groupId={groupId}
+                        onLeaveGroup={() => {
+                            router.push('/groups');
+                        }}
+                    />
+                )}
+
+                {showInviteMembers && (
+                    <InviteMembersPopup
+                        onClose={toggleInviteMembers}
+                        groupId={groupId}
+                        currentMembers={members}
+                    />
+                )}
+
+                {showRemoveMembers && isCreator && (
+                    <RemoveMembersPopup
+                        onClose={toggleRemoveMembers}
+                        groupId={groupId}
+                        members={members.filter(member => member.userId !== currentUserId)}
+                        onMemberRemoved={(removedMemberId) => {
+                            setMembers(members.filter(member => member.userId !== removedMemberId));
+                        }}
+                    />
+                )}
+
+                {showSettleGroup && (
+                    <SettleGroupPopup
+                        onClose={toggleSettleGroup}
+                        onConfirm={handleSettleGroup}
+                        userBalance={userBalance}
                     />
                 )}
             </div>
 
-            <div className="group-content">
-                <div className="left-section">
-                    <button className="add-expense-button" onClick={toggleAddExpense}>
-                        <PlusCircle size={20} />
-                        Add Group Expense
-                    </button>
-
-                    <div className="group-history-container">
-                        <GroupHistory expenses={expenses} members={members} groupId={groupId} />
-                    </div>
-                </div>
-
-                <div className="right-section">
-                    <div className={`balance-info ${getBalanceStatusClass()}`}>
-                        <h2>Your Balance</h2>
-                        <div className="balance-amount">{formatCurrency(Math.abs(userBalance))}</div>
-                        <div className="balance-status">
-                            {userBalance === 0
-                                ? 'Settled'
-                                : userBalance > 0
-                                    ? 'You are owed'
-                                    : 'You owe'}
-                        </div>
-                    </div>
-
-                    <div className="balance-graph-container">
-                        <h2>Group Balances</h2>
-                        <BalanceGraph
-                            members={members}
-                            currentUserId={currentUserId}
-                            currency={group?.currency || 'USD'}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {showAddExpense && (
-                <AddExpensePopup
-                    onClose={toggleAddExpense}
-                    onConfirm={handleAddExpense}
-                    members={members}
-                />
-            )}
-
-            {showViewMembers && (
-                <ViewMembersPopup
-                    onClose={toggleViewMembers}
-                    members={members}
-                    currentUserId={currentUserId}
-                    groupId={groupId}
-                    onLeaveGroup={() => {
-                        router.push('/groups');
-                    }}
-                />
-            )}
-
-            {showInviteMembers && (
-                <InviteMembersPopup
-                    onClose={toggleInviteMembers}
-                    groupId={groupId}
-                    currentMembers={members}
-                />
-            )}
-
-            {showRemoveMembers && isCreator && (
-                <RemoveMembersPopup
-                    onClose={toggleRemoveMembers}
-                    groupId={groupId}
-                    members={members.filter(member => member.userId !== currentUserId)}
-                    onMemberRemoved={(removedMemberId) => {
-                        setMembers(members.filter(member => member.userId !== removedMemberId));
-                    }}
-                />
-            )}
-
-            {showSettleGroup && (
-                <SettleGroupPopup
-                    onClose={toggleSettleGroup}
-                    onConfirm={handleSettleGroup}
-                    userBalance={userBalance}
-                />
-            )}
+            <Footer />
         </div>
     );
 };

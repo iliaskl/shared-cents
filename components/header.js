@@ -4,32 +4,40 @@ import './header.css';
 import Link from 'next/link';
 import { getAuth, signOut } from "firebase/auth";
 
-
-export default function Header({name}) {
-
+export default function Header({ name }) {
     const [menuOpen, setMenuOpen] = React.useState(false);
+
     function toggleMenu() {
         setMenuOpen(prev => !prev);
     };
+
     function handleLogout() {
         const auth = getAuth();
         signOut(auth)
-          .then(() => {
-            console.log("Logged out");
-            window.location.href = "/login"; 
-          })
-          .catch((error) => {
-            console.error("Logout error:", error);
-          });
+            .then(() => {
+                console.log("Logged out");
+                window.location.href = "/login";
+            })
+            .catch((error) => {
+                console.error("Logout error:", error);
+            });
     }
-    return(
+
+    return (
         <header>
             <div className="header-container">
                 <div className="header-left">
-                    <Link href="/home"><img src="/images/logo.png" alt="Logo" className="logo" style={{width:"100px",height:"100px", borderRadius:"50%"}}/></Link>
+                    <Link href="/home">
+                        <img
+                            src="/images/logo.png"
+                            alt="Logo"
+                            className="logo"
+                            style={{ width: "100px", height: "auto" }}
+                        />
+                    </Link>
                     <h1>Hi {name}</h1>
                 </div>
-                
+
                 <nav>
                     <ul>
                         <li className="home">
@@ -61,9 +69,6 @@ export default function Header({name}) {
                     </ul>
                 </nav>
             </div>
-
         </header>
     );
-
-
 }
