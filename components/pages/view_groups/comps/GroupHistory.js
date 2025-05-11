@@ -34,7 +34,7 @@ const GroupHistory = ({ expenses, members, groupId }) => {
     const sortedExpenses = [...expenses].sort((a, b) => {
         const dateA = new Date(a.date || 0);
         const dateB = new Date(b.date || 0);
-        return dateB - dateA; // Newest first
+        return dateB - dateA;
     });
 
     // Calculate total pages

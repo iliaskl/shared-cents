@@ -23,7 +23,7 @@ const AddExpensePopup = ({ onClose, onConfirm, members }) => {
     // Initialize splits with equal percentage when members change
     useEffect(() => {
         if (members.length > 0) {
-            const equalPercentage = (100 / members.length).toFixed(2);
+            const equalPercentage = (100 / members.length).toFixed(0);
             const initialSplits = members.map(member => ({
                 userId: member.userId,
                 name: member.name,
@@ -53,7 +53,8 @@ const AddExpensePopup = ({ onClose, onConfirm, members }) => {
         const memberIndex = splits.findIndex(split => split.userId === userId);
         if (memberIndex === -1) return;
 
-        const parsedPercentage = parseFloat(parseFloat(newPercentage).toFixed(2));
+        // Round to whole number for 1% increments
+        const parsedPercentage = parseFloat(parseInt(newPercentage).toFixed(0));
         if (isNaN(parsedPercentage)) return;
 
         // Create a copy of the splits array
@@ -75,7 +76,7 @@ const AddExpensePopup = ({ onClose, onConfirm, members }) => {
             setValidationError('Total percentage cannot exceed 100%');
 
             // Reset all splits to equal percentages
-            const equalPercentage = (100 / members.length).toFixed(2);
+            const equalPercentage = (100 / members.length).toFixed(0);
             const resetSplits = members.map(member => ({
                 userId: member.userId,
                 name: member.name,
@@ -105,7 +106,7 @@ const AddExpensePopup = ({ onClose, onConfirm, members }) => {
             // Update percentages for non-adjusted members
             updatedSplits.forEach(split => {
                 if (!split.isAdjusted) {
-                    split.percentage = parseFloat(equalRemainingPercentage.toFixed(2));
+                    split.percentage = parseFloat(equalRemainingPercentage.toFixed(0));
                 }
 
                 // Update amount based on new percentage
@@ -136,7 +137,7 @@ const AddExpensePopup = ({ onClose, onConfirm, members }) => {
 
         // Calculate total percentage to make sure it sums to 100%
         const totalPercentage = splits.reduce((sum, split) => sum + split.percentage, 0);
-        if (Math.abs(totalPercentage - 100) > 0.1) { // Allow small floating-point errors
+        if (Math.abs(totalPercentage - 100) > 1) { // Allow slight rounding errors
             setValidationError('Total percentage must equal 100%');
             return;
         }
@@ -247,7 +248,7 @@ const AddExpensePopup = ({ onClose, onConfirm, members }) => {
                                         value={split.percentage}
                                         onChange={(e) => handlePercentageChange(split.userId, e.target.value)}
                                         className="percentage-input"
-                                        step="0.01"
+                                        step="1"
                                         min="0"
                                         max="100"
                                     />

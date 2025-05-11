@@ -24,18 +24,19 @@
     margin: 0;
     font-size: 20px;
     font-weight: 600;
-    color: #333;
+    color: #2C1500;
 }
 
 .expense-list {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: visible;
+    max-height: none;
 }
 
 .expense-item {
-    padding: 15px 0;
+    padding: 12px 0;
     border-bottom: 2px solid #f0f0f0;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     transition: padding 0.2s ease, background-color 0.2s ease;
 }
 
@@ -44,7 +45,7 @@
     padding-right: 10px;
     background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(44, 21, 0, 0.05);
 }
 
 .expense-item:last-child {
@@ -68,13 +69,25 @@
     margin: 0;
     font-size: 18px;
     font-weight: 500;
-    color: #333;
+    color: #2C1500;
 }
 
 .expense-amount {
     font-weight: 600;
     font-size: 18px;
-    color: #333;
+    color: #2C1500;
+}
+
+.expense-amount.owing {
+    color: #A63A50;
+}
+
+.expense-amount.owed {
+    color: #34558B;
+}
+
+.expense-amount.settled {
+    color: #93AD70;
 }
 
 .expense-secondary {
@@ -85,17 +98,18 @@
 
 .expense-metadata {
     display: flex;
-    color: #757575;
+    color: #2C1500;
     font-size: 14px;
     align-items: center;
 }
 
 .expense-payer {
-    color: #555;
+    color: #2C1500;
 }
 
 .expense-date {
-    color: #757575;
+    color: #2C1500;
+    opacity: 0.7;
 }
 
 .view-percentages-button {
@@ -104,7 +118,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #2196f3;
+    color: #34558B;
     padding: 5px;
     cursor: pointer;
     font-size: 14px;
@@ -112,7 +126,7 @@
 }
 
 .view-percentages-button:hover {
-    color: #1976d2;
+    color: #293f68;
 }
 
 .percentages-breakdown {
@@ -126,7 +140,7 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 16px;
-    color: #555;
+    color: #2C1500;
 }
 
 .percentages-list {
@@ -142,7 +156,7 @@
 }
 
 .percentage-name {
-    color: #555;
+    color: #2C1500;
 }
 
 .percentage-values {
@@ -151,13 +165,14 @@
 }
 
 .percentage-value {
-    color: #555;
+    color: #2C1500;
+    opacity: 0.7;
     min-width: 50px;
     text-align: right;
 }
 
 .percentage-amount {
-    color: #333;
+    color: #2C1500;
     font-weight: 500;
     min-width: 70px;
     text-align: right;
@@ -168,7 +183,7 @@
     justify-content: center;
     align-items: center;
     height: 200px;
-    color: #757575;
+    color: #2C1500;
     text-align: center;
 }
 
@@ -193,7 +208,7 @@
     cursor: pointer;
     transition: all 0.2s;
     font-size: 14px;
-    color: #333;
+    color: #2C1500;
     font-weight: 500;
 }
 
@@ -214,6 +229,6 @@
 
 .page-indicator {
     font-size: 14px;
-    color: #555;
+    color: #2C1500;
     font-weight: 500;
 }
