@@ -6,7 +6,7 @@
 *
 * This component provides a modal interface for creating new expense groups:
 * - Group name and currency selection
-* - Friend search and selection functionality
+* - Friend search and selection functionality from Firebase
 * - Member management with add/remove capabilities
 * - Form validation and submission handling
 */
@@ -16,54 +16,79 @@
 import { useState, useEffect } from 'react';
 import styles from './createGroupModal.module.css';
 
-/**
- * CreateGroupModal Component
- * 
- * @param {Function} onClose - Callback function to close the modal without creating a group
- * @param {Function} onCreate - Callback function to handle group creation with form data
- * @returns {JSX.Element} - Rendered modal component
- */
-const CreateGroupModal = ({ onClose, onCreate }) => {
+/* CreateGroupModal Component */
+const CreateGroupModal = ({ onClose, onCreate, currentUser }) => {
     // Form state management
     const [groupName, setGroupName] = useState('');
     const [currency, setCurrency] = useState('USD');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedFriends, setSelectedFriends] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+    const [loadingUsers, setLoadingUsers] = useState(true);
 
-    // Currency data with symbols and full names
+    // Enhanced currency data with locales and full information
     const currencies = [
-        { code: 'USD', name: 'United States Dollar', symbol: '$' },
-        { code: 'EUR', name: 'Euro', symbol: '€' },
-        { code: 'GBP', name: 'British Pound Sterling', symbol: '£' },
-        { code: 'CAD', name: 'Canadian Dollar', symbol: 'CA$' },
-        { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
-        { code: 'JPY', name: 'Japanese Yen', symbol: '¥' },
-        { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
-        { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+        { code: 'USD', name: 'United States Dollar', symbol: '$', locale: 'en-US' },
+        { code: 'EUR', name: 'Euro', symbol: '€', locale: 'de-DE' },
+        { code: 'GBP', name: 'British Pound Sterling', symbol: '£', locale: 'en-GB' },
+        { code: 'JPY', name: 'Japanese Yen', symbol: '¥', locale: 'ja-JP' },
+        { code: 'CAD', name: 'Canadian Dollar', symbol: 'CA$', locale: 'en-CA' },
+        { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', locale: 'en-AU' },
+        { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF', locale: 'de-CH' },
+        { code: 'CNY', name: 'Chinese Yuan', symbol: '¥', locale: 'zh-CN' },
+        { code: 'INR', name: 'Indian Rupee', symbol: '₹', locale: 'en-IN' },
+        { code: 'MXN', name: 'Mexican Peso', symbol: '$', locale: 'es-MX' },
+        { code: 'BRL', name: 'Brazilian Real', symbol: 'R$', locale: 'pt-BR' },
+        { code: 'KRW', name: 'South Korean Won', symbol: '₩', locale: 'ko-KR' }
     ];
 
-    // Mock user data for demonstration
-    const currentUser = {
-        id: 'user-1',
-        name: 'Bill Moss',
-        profileImage: '/images/profile-placeholder.jpg'
-    };
+    // Fetch all users from the database
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                setLoadingUsers(true);
 
-    // Mock friends list for demonstration
-    const friends = [
-        { id: 'friend-1', name: 'John Anderson', profileImage: '/images/john-a.jpg' },
-        { id: 'friend-2', name: 'John Brown', profileImage: '/images/john-b.jpg' },
-        { id: 'friend-3', name: 'John Carter', profileImage: '/images/john-c.jpg' },
-        { id: 'friend-4', name: 'Sarah Johnson', profileImage: '/images/sarah.jpg' },
-        { id: 'friend-5', name: 'Michael Smith', profileImage: '/images/michael.jpg' },
-        { id: 'friend-6', name: 'Jessica Williams', profileImage: '/images/jessica.jpg' },
-        { id: 'friend-7', name: 'David Lee', profileImage: '/images/david.jpg' },
-        { id: 'friend-8', name: 'Emma Wilson', profileImage: '/images/emma.jpg' },
-    ];
+                // Check if we can fetch from the users API
+                try {
+                    const response = await fetch('http://localhost:5000/api/users');
+                    if (response.ok) {
+                        const users = await response.json();
+                        const filteredUsers = users.filter(user => user.id !== currentUser.id);
+                        setAllUsers(filteredUsers);
+                        return;
+                    }
+                } catch (apiError) {
+                    console.log('API not available, using mock users');
+                }
+
+                // Fallback to mock users if API is not available
+                const mockUsers = [
+                    { id: 'John', name: 'John', email: 'john@example.com' },
+                    { id: 'Paul', name: 'Paul', email: 'paul@example.com' },
+                    { id: 'user-3', name: 'Sarah', email: 'sarah@example.com' },
+                    { id: 'user-4', name: 'Mike', email: 'mike@example.com' }
+                ];
+
+                // Filter out the current user
+                const filteredUsers = mockUsers.filter(user => user.id !== currentUser.id);
+                setAllUsers(filteredUsers);
+
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                setAllUsers([]);
+            } finally {
+                setLoadingUsers(false);
+            }
+        };
+
+        if (currentUser) {
+            fetchUsers();
+        }
+    }, [currentUser]);
 
     /**
-     * Filter friends based on search term and already selected friends
+     * Filter users based on search term and already selected friends
      * Updates search results whenever search term or selected friends change
      */
     useEffect(() => {
@@ -73,22 +98,20 @@ const CreateGroupModal = ({ onClose, onCreate }) => {
         }
 
         const term = searchTerm.toLowerCase();
-        const results = friends.filter(
-            friend => friend.name.toLowerCase().includes(term) &&
-                !selectedFriends.some(selected => selected.id === friend.id)
+        const results = allUsers.filter(
+            user => user.name.toLowerCase().includes(term) &&
+                !selectedFriends.some(selected => selected.id === user.id)
         );
 
         // Sort alphabetically
         results.sort((a, b) => a.name.localeCompare(b.name));
 
         setSearchResults(results);
-    }, [searchTerm, selectedFriends]);
+    }, [searchTerm, selectedFriends, allUsers]);
 
     /**
      * Add a friend to the selected friends list
-     * Limited to maximum of 4 friends (5 total group members including creator)
-     * 
-     * @param {Object} friend - Friend object to add to selected list
+     * Limited to maximum of 4 friends (5 total group members including creator) 
      */
     const handleSelectFriend = (friend) => {
         // Max 5 users including yourself (so 4 friends max)
@@ -99,21 +122,12 @@ const CreateGroupModal = ({ onClose, onCreate }) => {
         }
     };
 
-    /**
-     * Remove a friend from the selected friends list
-     * 
-     * @param {string} friendId - ID of friend to remove
-     */
+    /* Remove a friend from the selected friends list */
     const handleRemoveFriend = (friendId) => {
         setSelectedFriends(selectedFriends.filter(friend => friend.id !== friendId));
     };
 
-    /**
-     * Handle form submission
-     * Validates input and creates group data object
-     * 
-     * @param {Event} e - Form submission event
-     */
+    /* Handle form submission and validates input and creates group data object */
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -123,10 +137,15 @@ const CreateGroupModal = ({ onClose, onCreate }) => {
             return;
         }
 
-        // Create group data object
+        // Find the complete currency object
+        const selectedCurrency = currencies.find(c => c.code === currency);
+
+        // Create group data object with locale information
         const groupData = {
             name: groupName,
-            currency,
+            currency: currency,
+            currencyLocale: selectedCurrency.locale,
+            currencySymbol: selectedCurrency.symbol,
             members: [currentUser, ...selectedFriends]
         };
 
@@ -186,30 +205,38 @@ const CreateGroupModal = ({ onClose, onCreate }) => {
                             id="friendSearch"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder={selectedFriends.length >= 4 ? "Maximum friends reached" : "Search friends..."}
-                            disabled={selectedFriends.length >= 4}
+                            placeholder={
+                                loadingUsers ? "Loading users..." :
+                                    selectedFriends.length >= 4 ? "Maximum friends reached" :
+                                        "Search users..."
+                            }
+                            disabled={selectedFriends.length >= 4 || loadingUsers}
                         />
 
                         {searchResults.length > 0 && (
                             <div className={styles.searchResults}>
-                                {searchResults.map(friend => (
+                                {searchResults.map(user => (
                                     <div
-                                        key={friend.id}
+                                        key={user.id}
                                         className={styles.searchResultItem}
-                                        onClick={() => handleSelectFriend(friend)}
+                                        onClick={() => handleSelectFriend(user)}
                                     >
                                         <div className={styles.profileImage}>
-                                            <div className={styles.imagePlaceholder}></div>
+                                            {user.profileImage ? (
+                                                <img src={user.profileImage} alt={user.name} />
+                                            ) : (
+                                                <div className={styles.imagePlaceholder}></div>
+                                            )}
                                         </div>
-                                        <span>{friend.name}</span>
+                                        <span>{user.name}</span>
                                     </div>
                                 ))}
                             </div>
                         )}
 
-                        {searchTerm && searchResults.length === 0 && (
+                        {searchTerm && searchResults.length === 0 && !loadingUsers && (
                             <div className={styles.noResults}>
-                                No user with name in your friends list
+                                No users found matching "{searchTerm}"
                             </div>
                         )}
                     </div>
@@ -219,7 +246,11 @@ const CreateGroupModal = ({ onClose, onCreate }) => {
                         <div className={styles.membersList}>
                             <div className={styles.memberItem}>
                                 <div className={styles.profileImage}>
-                                    <div className={styles.imagePlaceholder}></div>
+                                    {currentUser.profileImage ? (
+                                        <img src={currentUser.profileImage} alt={currentUser.name} />
+                                    ) : (
+                                        <div className={styles.imagePlaceholder}></div>
+                                    )}
                                 </div>
                                 <span>{currentUser.name}</span>
                                 <span className={styles.creatorBadge}>(Creator)</span>
@@ -228,7 +259,11 @@ const CreateGroupModal = ({ onClose, onCreate }) => {
                             {selectedFriends.map(friend => (
                                 <div key={friend.id} className={styles.memberItem}>
                                     <div className={styles.profileImage}>
-                                        <div className={styles.imagePlaceholder}></div>
+                                        {friend.profileImage ? (
+                                            <img src={friend.profileImage} alt={friend.name} />
+                                        ) : (
+                                            <div className={styles.imagePlaceholder}></div>
+                                        )}
                                     </div>
                                     <span>{friend.name}</span>
                                     <button

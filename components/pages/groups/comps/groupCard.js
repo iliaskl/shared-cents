@@ -6,60 +6,140 @@
 *
 * This component renders an individual group card with:
 * - Color-coded visual status (owing, owed, settled)
-* - Balance information and creation date
-* - Action buttons for viewing, leaving, and archiving
-* - Conditional display of leave button based on balance status
+* - Balance information with proper currency formatting
+* - Creation date display
+* - Action buttons for viewing and archiving
 */
 
 "use client";
 
+import { useState, useEffect } from 'react';
 import styles from './groupCard.module.css';
+import { useRouter } from 'next/navigation';
 
-/**
- * GroupCard Component
- * 
- * @param {Object} group - Group data object containing id, name, balance, creationDate, archived
- * @param {string} color - Color scheme for the card (red, blue, or green)
- * @param {Function} onView - Callback function for view group action
- * @param {Function} onLeave - Callback function for leave group action
- * @param {Function} onToggleArchive - Callback function for archive/unarchive toggle
- * @returns {JSX.Element} - Rendered card component
- */
-const GroupCard = ({ group, color, onView, onLeave, onToggleArchive }) => {
-    const { id, name, balance, creationDate, archived } = group;
+const GroupCard = ({ group, color, onToggleArchive, onBalanceUpdate }) => {
+    const { id, name, balance: initialBalance, creationDate, archived, currency = 'USD', currencyLocale = 'en-US', currencySymbol = '$' } = group;
+    const router = useRouter();
 
-    /**
-     * Converts ISO date string to localized date format
-     * 
-     * @param {string} dateString - ISO date string
-     * @returns {string} - Formatted date string (e.g., "Apr 15, 2025")
-     */
+    // State to store the up-to-date balance
+    const [balance, setBalance] = useState(initialBalance);
+    // Loading state
+    const [loading, setLoading] = useState(false);
+
+    // Fetch live balance data when the component mounts
+    useEffect(() => {
+        // Only fetch for the roommates group
+        if (name.toLowerCase() === 'roommates') {
+            fetchLiveBalance();
+        }
+    }, [id, name]);
+
+    // Function to fetch the live balance
+    const fetchLiveBalance = async () => {
+        try {
+            setLoading(true);
+
+            // Get current user ID (same as in ViewGroup.js)
+            const currentUserId = localStorage.getItem('userId') || "John";
+
+            // Fetch the roommates group data
+            const response = await fetch('http://localhost:5000/api/groups/roommates');
+
+            if (response.ok) {
+                const groupData = await response.json();
+
+                // Find the user in the members array
+                if (groupData.members && Array.isArray(groupData.members)) {
+                    const userMember = groupData.members.find(member => member.userId === currentUserId);
+
+                    if (userMember) {
+                        const newBalance = userMember.balance;
+                        console.log(`Updated balance for ${currentUserId} in ${name} group:`, newBalance);
+
+                        // Set local state
+                        setBalance(newBalance);
+
+                        // Notify parent component about the balance update
+                        if (onBalanceUpdate && newBalance !== initialBalance) {
+                            onBalanceUpdate(id, newBalance);
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching live balance:', error);
+            // In case of error, fall back to the initial balance
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Currency configuration with locales
+    const currencyConfig = {
+        'USD': { locale: 'en-US', currency: 'USD' },
+        'EUR': { locale: 'de-DE', currency: 'EUR' },
+        'GBP': { locale: 'en-GB', currency: 'GBP' },
+        'JPY': { locale: 'ja-JP', currency: 'JPY' },
+        'CAD': { locale: 'en-CA', currency: 'CAD' },
+        'AUD': { locale: 'en-AU', currency: 'AUD' },
+        'CHF': { locale: 'de-CH', currency: 'CHF' },
+        'CNY': { locale: 'zh-CN', currency: 'CNY' },
+        'INR': { locale: 'en-IN', currency: 'INR' },
+        'MXN': { locale: 'es-MX', currency: 'MXN' },
+        'BRL': { locale: 'pt-BR', currency: 'BRL' },
+        'KRW': { locale: 'ko-KR', currency: 'KRW' },
+    };
+
+    // Format date to be more readable
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    /**
-     * Formats balance amount with appropriate text based on value
-     * 
-     * @param {number} balance - Current balance amount
-     * @returns {string} - Formatted balance string with appropriate context
-     */
+    // Format currency amount with proper locale
+    const formatCurrency = (amount, currencyCode, locale) => {
+        const config = currencyConfig[currencyCode] || currencyConfig['USD'];
+
+        return new Intl.NumberFormat(config.locale, {
+            style: 'currency',
+            currency: config.currency,
+            minimumFractionDigits: currencyCode === 'JPY' || currencyCode === 'KRW' ? 0 : 2,
+            maximumFractionDigits: currencyCode === 'JPY' || currencyCode === 'KRW' ? 0 : 2
+        }).format(Math.abs(amount));
+    };
+
+    // Format balance with appropriate text
     const formatBalance = (balance) => {
+        const formattedAmount = formatCurrency(balance, currency, currencyLocale);
+
         if (balance < 0) {
-            return `You owe $${Math.abs(balance).toFixed(2)}`;
+            return `You owe ${formattedAmount}`;
         } else if (balance > 0) {
-            return `You are owed $${balance.toFixed(2)}`;
+            return `You are owed ${formattedAmount}`;
         } else {
             return 'Settled';
         }
     };
 
-    // Determine if user can leave the group (only if balance is settled)
-    const canLeaveGroup = balance === 0 && !archived;
+    // Get the correct color class based on the balance
+    const getColorClass = () => {
+        if (balance < 0) {
+            return 'red'; // Owing (red)
+        } else if (balance > 0) {
+            return 'blue'; // Owed (blue)
+        } else {
+            return 'green'; // Settled (green)
+        }
+    };
+
+    // Handle view group click - navigate to the group view page with correct ID
+    const handleViewGroup = () => {
+        console.log('Navigating to group with ID:', id);
+        router.push(`/group_view?id=${id}`);
+    };
 
     return (
-        <div className={`${styles.card} ${styles[color]} ${archived ? styles.archived : ''}`}>
+        <div className={`${styles.card} ${styles[getColorClass()]} ${archived ? styles.archived : ''}`}>
             <div className={styles.archiveButton} onClick={onToggleArchive} title={archived ? "Unarchive Group" : "Archive Group"}>
                 {archived ? (
                     // Unarchive button (box with minus)
@@ -86,25 +166,16 @@ const GroupCard = ({ group, color, onView, onLeave, onToggleArchive }) => {
             </div>
 
             <div className={styles.balanceInfo}>
-                {formatBalance(balance)}
+                {loading ? 'Loading...' : formatBalance(balance)}
             </div>
 
             <div className={styles.buttonsContainer}>
                 <button
                     className={styles.viewButton}
-                    onClick={onView}
+                    onClick={handleViewGroup}
                 >
                     View Group
                 </button>
-
-                {canLeaveGroup && (
-                    <button
-                        className={styles.leaveButton}
-                        onClick={onLeave}
-                    >
-                        Leave Group
-                    </button>
-                )}
             </div>
         </div>
     );

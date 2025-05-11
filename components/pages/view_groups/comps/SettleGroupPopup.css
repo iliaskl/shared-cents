@@ -1,0 +1,72 @@
+/**
+ * SettleGroupPopup.css
+ * Styling for the Settle Group popup
+ * 
+ * Created by: Ilias Kladakis
+ * Date: May 2025
+ */
+
+.settle-group-popup {
+    width: 450px;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.settle-icon {
+    margin: 20px 0;
+}
+
+.check-icon {
+    color: #4caf50;
+}
+
+.alert-icon {
+    color: #f44336;
+}
+
+.settle-message h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.settle-message p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.settle-instruction {
+    font-style: italic;
+    margin-top: 15px !important;
+    color: #757575 !important;
+    font-size: 14px !important;
+}
+
+.settlement-note {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+}
+
+.settlement-note svg {
+    color: #757575;
+    margin-top: 2px;
+}
+
+.settlement-note p {
+    margin: 0;
+    font-size: 14px;
+    color: #757575;
+    line-height: 1.5;
+}
+
+.popup-actions {
+    margin-top: 25px;
+}

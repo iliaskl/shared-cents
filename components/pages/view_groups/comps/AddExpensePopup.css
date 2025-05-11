@@ -1,0 +1,220 @@
+/**
+ * AddExpensePopup.css
+ * Styling for the Add Expense popup component
+ * 
+ * Created by: Ilias Kladakis
+ * Date: May 2025
+ */
+
+.add-expense-popup {
+  width: 550px;
+  max-width: 90vw;
+  max-height: 85vh;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #444;
+  font-size: 15px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+  color: #333;
+}
+
+.form-group input::placeholder {
+  color: #666;
+}
+
+.amount-input {
+  position: relative;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  font-weight: 500;
+}
+
+.amount-input input {
+  padding-left: 30px;
+}
+
+.date-input {
+  position: relative;
+}
+
+.date-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #444;
+  pointer-events: none;
+  z-index: 1;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.splits-section {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-top: 1px solid #ddd;
+  padding-top: 16px;
+}
+
+.splits-section h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.split-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.split-item:last-child {
+  border-bottom: none;
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.member-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.member-avatar-placeholder {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.member-name {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.split-input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.percentage-input {
+  width: 60px !important;
+  text-align: right;
+  padding: 6px !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+
+.percentage-symbol {
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+}
+
+.split-amount {
+  margin-left: 12px;
+  min-width: 70px;
+  text-align: right;
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.char-counter {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+  text-align: right;
+}
+
+.cancel-button {
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0;
+}
+
+.confirm-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.confirm-button:hover {
+  background-color: #43a047;
+}

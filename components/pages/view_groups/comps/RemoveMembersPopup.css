@@ -1,0 +1,213 @@
+/**
+ * RemoveMembersPopup.css
+ * Styling for the Remove Members popup
+ * 
+ * Created by: Ilias Kladakis
+ * Date: May 2025
+ */
+
+.remove-members-popup {
+    width: 450px;
+    max-width: 90vw;
+}
+
+.instructions {
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #555;
+}
+
+.members-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 6px;
+}
+
+.member-item:hover {
+    background-color: #f5f5f5;
+}
+
+.member-item.selected {
+    background-color: #ffebee;
+}
+
+.member-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.member-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.member-avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.member-name {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.member-action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.member-action-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.remove-icon {
+    color: #bdbdbd;
+    transition: color 0.2s;
+}
+
+.selected-icon {
+    color: #f44336;
+}
+
+.no-members-message {
+    padding: 30px 20px;
+    text-align: center;
+    color: #757575;
+}
+
+.confirmation-dialog {
+    background-color: #ffebee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.confirmation-icon {
+    margin-bottom: 15px;
+    color: #f44336;
+}
+
+.confirmation-message {
+    margin-bottom: 15px;
+}
+
+.confirmation-message p {
+    margin: 0 0 10px;
+    color: #333;
+    font-size: 15px;
+}
+
+.confirmation-warning {
+    color: #f44336 !important;
+    font-size: 14px !important;
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.cancel-removal-button {
+    background-color: #f5f5f5;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cancel-removal-button:hover:not(:disabled) {
+    background-color: #e0e0e0;
+}
+
+.confirm-removal-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.confirm-removal-button:hover:not(:disabled) {
+    background-color: #d32f2f;
+}
+
+.confirm-removal-button:disabled,
+.cancel-removal-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #f44336;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    color: #4caf50;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.remove-button:hover:not(:disabled) {
+    background-color: #d32f2f;
+}
+
+.remove-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
