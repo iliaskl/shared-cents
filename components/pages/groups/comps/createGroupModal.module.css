@@ -64,7 +64,7 @@
 /* Hover effect for close button */
 .closeButton:hover {
     color: #2C1500;
-    background-color: #F6E4CE;
+    background-color: #F7E4D0;
     border-radius: 50%;
 }
 
@@ -117,7 +117,7 @@
 .formGroup select:focus {
     outline: none;
     border-color: #2C1500;
-    background-color: #F9F3EA;
+    background-color: #F7E4D0;
 }
 
 /* Character counter for the name input */
@@ -154,7 +154,7 @@
 
 /* Hover effect for search results */
 .searchResultItem:hover {
-    background-color: #F6E4CE;
+    background-color: #F7E4D0;
 }
 
 /* Message shown when no matching friends are found */
@@ -181,7 +181,7 @@
     padding: 0.5rem;
     border-radius: 4px;
     margin-bottom: 0.5rem;
-    background-color: #F6E4CE;
+    background-color: #F7E4D0;
     color: #2C1500;
 }
 
@@ -247,7 +247,7 @@
 
 /* Hover effect for remove friend button */
 .removeFriendButton:hover {
-    background-color: #f3d5d9;
+    background-color: rgba(166, 58, 80, 0.1);
     border-radius: 50%;
 }
 

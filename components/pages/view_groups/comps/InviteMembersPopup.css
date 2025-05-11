@@ -4,6 +4,7 @@
  * 
  * Created by: Ilias Kladakis
  * Date: May 2025
+ * Updated with new color palette
  */
 
 .invite-members-popup {
@@ -17,7 +18,7 @@
     background-color: #f5f5f5;
     border-radius: 6px;
     font-size: 14px;
-    color: #555;
+    color: #2C1500;
 }
 
 .search-container {
@@ -30,7 +31,8 @@
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: #757575;
+    color: #2C1500;
+    opacity: 0.7;
 }
 
 .search-input {
@@ -43,7 +45,7 @@
 
 .search-input:focus {
     outline: none;
-    border-color: #2196f3;
+    border-color: #34558B;
 }
 
 .friends-list {
@@ -67,7 +69,7 @@
 }
 
 .friend-item.selected {
-    background-color: #e8f5e9;
+    background-color: rgba(147, 173, 112, 0.15);
 }
 
 .friend-info {
@@ -88,7 +90,7 @@
     height: 36px;
     border-radius: 50%;
     background-color: #e0e0e0;
-    color: #757575;
+    color: #2C1500;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,6 +101,7 @@
 .friend-name {
     font-weight: 500;
     font-size: 16px;
+    color: #2C1500;
 }
 
 .friend-selection {
@@ -107,7 +110,7 @@
 }
 
 .selected-icon {
-    color: #4caf50;
+    color: #93AD70;
 }
 
 .add-icon {
@@ -115,20 +118,22 @@
 }
 
 .loading-message,
-.no-friends-message,
+.no-friends-message {
+    padding: 20px;
+    text-align: center;
+    color: #2C1500;
+    opacity: 0.7;
+}
+
 .error-message {
     padding: 20px;
     text-align: center;
-    color: #757575;
-}
-
-.error-message {
-    color: #f44336;
+    color: #A63A50;
 }
 
 .success-message {
-    background-color: #e8f5e9;
-    color: #4caf50;
+    background-color: rgba(147, 173, 112, 0.15);
+    color: #93AD70;
     padding: 12px 15px;
     border-radius: 6px;
     text-align: center;

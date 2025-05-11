@@ -3,6 +3,7 @@
 * Card component for displaying group information
 * Created by: Ilias Kladakis
 * Date: April 2025
+* Updated: May 2025 - Modified archive button to work with confirmation dialog
 *
 * This component renders an individual group card with:
 * - Color-coded visual status (owing, owed, settled)
@@ -138,9 +139,20 @@ const GroupCard = ({ group, color, onToggleArchive, onBalanceUpdate }) => {
         router.push(`/group_view?id=${id}`);
     };
 
+    // Handle archive button click - now just calls the parent handler
+    const handleArchiveClick = (e) => {
+        e.stopPropagation(); // Prevent click from bubbling to card
+        // Send current balance to parent component for confirmation logic
+        onToggleArchive();
+    };
+
     return (
         <div className={`${styles.card} ${styles[getColorClass()]} ${archived ? styles.archived : ''}`}>
-            <div className={styles.archiveButton} onClick={onToggleArchive} title={archived ? "Unarchive Group" : "Archive Group"}>
+            <div
+                className={styles.archiveButton}
+                onClick={handleArchiveClick}
+                title={archived ? "Unarchive Group" : "Archive Group"}
+            >
                 {archived ? (
                     // Unarchive button (box with minus)
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

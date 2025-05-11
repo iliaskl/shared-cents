@@ -4,18 +4,20 @@
  * 
  * Created by: Ilias Kladakis
  * Date: May 2025
+ * Updated: Background color fix for overlays
  */
 
-/* Reset margins and padding */
+/* Reset for full-width display */
 html.full-width,
 body.full-width {
     margin: 0;
     padding: 0;
     width: 100%;
     overflow-x: hidden;
+    background-color: white;
 }
 
-/* Main page container with header and footer */
+/* Main page container with header and footer - ensuring header extends fully */
 .page-container {
     display: flex;
     flex-direction: column;
@@ -27,15 +29,14 @@ body.full-width {
     overflow-x: hidden;
 }
 
+/* View group container for content */
 .view-group-container {
     flex: 1;
     width: 100%;
-    max-width: 100%;
-    padding: 20px;
+    padding: 20px 30px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 60px;
-    /* Space for footer */
 }
 
 .group-header {
@@ -43,14 +44,15 @@ body.full-width {
     justify-content: space-between;
     align-items: center;
     padding: 0 0 20px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #F7E4D0;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .group-name {
     font-size: 28px;
     font-weight: 600;
-    color: #333;
+    color: #2C1500;
     margin: 0;
     text-align: left;
 }
@@ -67,7 +69,7 @@ body.full-width {
     justify-content: center;
     border-radius: 50%;
     transition: background-color 0.2s;
-    color: #555;
+    color: #2C1500;
 }
 
 .menu-button:hover {
@@ -83,11 +85,11 @@ body.full-width {
 /* For larger screens */
 @media (min-width: 901px) {
     .left-section {
-        flex: 0.35;
+        flex: 0.5;
     }
 
     .right-section {
-        flex: 0.65;
+        flex: 0.5;
     }
 }
 
@@ -103,8 +105,8 @@ body.full-width {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-color: #4caf50;
-    color: white;
+    background-color: #93AD70;
+    color: #2C1500;
     padding: 12px 20px;
     border: none;
     border-radius: 8px;
@@ -112,11 +114,11 @@ body.full-width {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(44, 21, 0, 0.1);
 }
 
 .add-expense-button:hover {
-    background-color: #43a047;
+    background-color: #85a061;
 }
 
 .history-header {
@@ -131,25 +133,24 @@ body.full-width {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-height: 600px;
-    /* Set a reasonable max height */
-    overflow-y: auto;
-    /* Allow scrolling within container */
+    box-shadow: 0 2px 8px rgba(44, 21, 0, 0.1);
+    max-height: none;
+    overflow-y: visible;
+    min-height: 550px;
 }
 
 .group-history-container h2 {
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 20px;
-    color: #333;
+    color: #2C1500;
 }
 
 .balance-info {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(44, 21, 0, 0.1);
     text-align: center;
 }
 
@@ -157,7 +158,7 @@ body.full-width {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 20px;
-    color: #333;
+    color: #2C1500;
 }
 
 .balance-amount {
@@ -173,17 +174,17 @@ body.full-width {
 
 .balance-info.settled .balance-amount,
 .balance-info.settled .balance-status {
-    color: #4caf50;
+    color: #93AD70;
 }
 
 .balance-info.owed .balance-amount,
 .balance-info.owed .balance-status {
-    color: #2196f3;
+    color: #34558B;
 }
 
 .balance-info.owing .balance-amount,
 .balance-info.owing .balance-status {
-    color: #f44336;
+    color: #A63A50;
 }
 
 .balance-graph-container {
@@ -191,16 +192,17 @@ body.full-width {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-height: 500px;
-    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(44, 21, 0, 0.1);
+    max-height: none;
+    overflow-y: visible;
+    min-height: 550px;
 }
 
 .balance-graph-container h2 {
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 20px;
-    color: #333;
+    color: #2C1500;
 }
 
 .loading {
@@ -209,7 +211,7 @@ body.full-width {
     align-items: center;
     height: 100%;
     font-size: 18px;
-    color: #757575;
+    color: #2C1500;
     padding: 50px 0;
 }
 
@@ -219,13 +221,13 @@ body.full-width {
     align-items: center;
     height: 100%;
     font-size: 18px;
-    color: #f44336;
+    color: #A63A50;
     padding: 50px 0;
 }
 
 .error-banner {
-    background-color: #ffebee;
-    color: #d32f2f;
+    background-color: rgba(166, 58, 80, 0.1);
+    color: #A63A50;
     padding: 10px 20px;
     border-radius: 4px;
     margin-bottom: 20px;
@@ -237,11 +239,12 @@ body.full-width {
 .error-banner button {
     background: none;
     border: none;
-    color: #d32f2f;
+    color: #A63A50;
     cursor: pointer;
     font-weight: 500;
 }
 
+/* Updated to use neutral black overlay instead of orange-tinted brown */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -249,6 +252,7 @@ body.full-width {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    /* Changed from rgba(44, 21, 0, 0.5) */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -260,6 +264,7 @@ body.full-width {
     border-radius: 8px;
     padding: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /* Changed from rgba(44, 21, 0, 0.15) */
     max-width: 500px;
     width: 100%;
     max-height: 80vh;
@@ -276,7 +281,7 @@ body.full-width {
 .popup-header h2 {
     margin: 0;
     font-size: 24px;
-    color: #333;
+    color: #2C1500;
 }
 
 .close-button {
@@ -284,7 +289,7 @@ body.full-width {
     border: none;
     cursor: pointer;
     font-size: 24px;
-    color: #757575;
+    color: #2C1500;
     padding: 5px;
 }
 
@@ -297,7 +302,7 @@ body.full-width {
 
 .cancel-button {
     background-color: #f5f5f5;
-    color: #333;
+    color: #2C1500;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
@@ -311,8 +316,8 @@ body.full-width {
 }
 
 .confirm-button {
-    background-color: #4caf50;
-    color: white;
+    background-color: #93AD70;
+    color: #2C1500;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
@@ -322,7 +327,7 @@ body.full-width {
 }
 
 .confirm-button:hover {
-    background-color: #43a047;
+    background-color: #85a061;
 }
 
 /* Mobile view adjustments */
@@ -337,6 +342,6 @@ body.full-width {
 
     .group-history-container,
     .balance-graph-container {
-        max-height: 400px;
+        max-height: none;
     }
 }

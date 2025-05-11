@@ -50,11 +50,13 @@ const ViewGroup = () => {
         // Add classes to html and body when component mounts
         document.documentElement.classList.add('full-width');
         document.body.classList.add('full-width');
+        document.body.classList.add('view-group-page'); // Add this class for header targeting
 
         // Remove classes when component unmounts
         return () => {
             document.documentElement.classList.remove('full-width');
             document.body.classList.remove('full-width');
+            document.body.classList.remove('view-group-page');
         };
     }, []);
 
