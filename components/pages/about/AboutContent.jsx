@@ -1,7 +1,7 @@
 export default function AboutPage() {
     return (
         <div style={{ backgroundColor: 'white', color: '#333', minHeight: '100vh', padding: '2rem' }}>
-            <img src="/images/Logo.png" alt="SharedCents Logo" style={{ display: 'block', margin: '0 auto', width: '200px' }} />
+            <img src="/images/Logo_White.png" alt="SharedCents Logo" style={{ display: 'block', margin: '0 auto', width: '200px' }} />
             <h1 style={{ fontSize: '3rem', textAlign: 'center', marginBottom: '1rem' }}>
                 About Us
             </h1>
