@@ -1,3 +1,13 @@
+import AboutContent from '@/components/pages/profile/ProfileContent';
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+
 export default function ProfilePage() {
-  return <h1>This is the Profile Page</h1>;
+  return (
+    <>
+      <Header />
+      <h1>This is the Profile Page</h1>;
+      <Footer />
+    </>
+  );
 }
