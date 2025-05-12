@@ -1,0 +1,137 @@
+/**
+ * InviteMembersPopup.css
+ * Styling for the Invite Members popup
+ * 
+ * Created by: Ilias Kladakis
+ * Date: May 2025
+ */
+
+.invite-members-popup {
+    width: 450px;
+    max-width: 90vw;
+}
+
+.capacity-info {
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #555;
+}
+
+.search-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #757575;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #2196f3;
+}
+
+.friends-list {
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.friend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.friend-item:hover {
+    background-color: #f5f5f5;
+}
+
+.friend-item.selected {
+    background-color: #e8f5e9;
+}
+
+.friend-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.friend-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.friend-avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.friend-name {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.friend-selection {
+    display: flex;
+    align-items: center;
+}
+
+.selected-icon {
+    color: #4caf50;
+}
+
+.add-icon {
+    color: #bdbdbd;
+}
+
+.loading-message,
+.no-friends-message,
+.error-message {
+    padding: 20px;
+    text-align: center;
+    color: #757575;
+}
+
+.error-message {
+    color: #f44336;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    color: #4caf50;
+    padding: 12px 15px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}

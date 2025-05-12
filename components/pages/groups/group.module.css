@@ -1,0 +1,152 @@
+/*
+* groups.module.css
+* CSS module for the Groups page layout and components
+* Created by: Ilias Kladakis
+* Date: April 2025
+*
+* This file contains all the styling for the main Groups page interface including:
+* - Page container and layout
+* - Header with filter dropdown and create button
+* - Group cards grid layout
+* - Responsive design adjustments
+*/
+
+/* Main container for the Groups page with responsive width and centered alignment */
+.groupsContainer {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header area containing filter dropdown and create button */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* Container for the filter dropdown and its label */
+.sortingContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2C1500;
+}
+
+/* Styling for the filter dropdown */
+.sortDropdown {
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #F6E4CE;
+    font-size: 1rem;
+    color: #2C1500;
+    min-width: 120px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232C1500' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+/* Hover and focus effect for dropdown */
+.sortDropdown:hover,
+.sortDropdown:focus {
+    background-color: #E8D3BE;
+    border-color: #2C1500;
+}
+
+/* Style for dropdown options */
+.sortDropdown option {
+    background-color: #F6E4CE;
+    color: #2C1500;
+}
+
+/* Hover effect for dropdown options - using a direct override */
+.sortDropdown option:hover,
+.sortDropdown option:focus {
+    background-color: #E8D3BE !important;
+    color: #2C1500 !important;
+    box-shadow: 0 0 10px 100px #E8D3BE inset !important;
+}
+
+/* Styling for the "Create New Group" button */
+.createButton {
+    background-color: #F8E3CE;
+    color: #2C1500;
+    border: none;
+    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the "Create new group" button */
+.createButton:hover {
+    background-color: #E8D3BE;
+}
+
+/* Grid layout for the group cards */
+.groupsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 100%;
+}
+
+/* Styling for the "No groups found" message */
+.noGroups {
+    text-align: center;
+    padding: 3rem 0;
+    color: #2C1500;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+/* Styling for loading state */
+.loading {
+    text-align: center;
+    padding: 3rem 0;
+    color: #2C1500;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+/* Styling for error state */
+.error {
+    text-align: center;
+    padding: 3rem 0;
+    color: #A63A50;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+/* Ensure exactly 4 cards per row on larger screens */
+@media (min-width: 1200px) {
+    .groupsGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Responsive adjustments for medium screens */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .groupsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 480px) {
+    .groupsGrid {
+        grid-template-columns: 1fr;
+    }
+}
