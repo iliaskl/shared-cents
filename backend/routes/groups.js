@@ -269,22 +269,90 @@ router.get('/:groupId', async (req, res) => {
 
 /**
  * PATCH /api/groups/:groupId
- * Update a group (archive/unarchive)
+ * Update a group (archive/unarchive) - supports lookup by ID or name
  */
 router.patch('/:groupId', async (req, res) => {
     try {
         const { groupId } = req.params;
         const updates = req.body;
 
+        console.log(`Attempting to update group ${groupId} with:`, updates);
+
+        // First try direct document lookup (by ID)
+        let groupDoc = await db.collection('groups').doc(groupId).get();
+        let groupRef = db.collection('groups').doc(groupId);
+
+        // If not found by direct ID, try lookup by name with various case options
+        if (!groupDoc.exists) {
+            console.log(`Group not found by ID, trying to find by name with different cases`);
+
+            // Case variations to try
+            const namesToTry = [
+                groupId,                     // Original as passed
+                groupId.toLowerCase(),       // all lowercase
+                groupId.toUpperCase(),       // ALL UPPERCASE
+                groupId.charAt(0).toUpperCase() + groupId.slice(1).toLowerCase() // Capitalized
+            ];
+
+            let found = false;
+
+            // Try each case variation
+            for (const nameVariation of namesToTry) {
+                console.log(`Trying name variation: "${nameVariation}"`);
+                const groupsSnapshot = await db.collection('groups')
+                    .where('name', '==', nameVariation)
+                    .limit(1)
+                    .get();
+
+                if (!groupsSnapshot.empty) {
+                    groupDoc = groupsSnapshot.docs[0];
+                    groupRef = db.collection('groups').doc(groupDoc.id);
+                    found = true;
+                    console.log(`Found group with name: "${nameVariation}", ID: ${groupDoc.id}`);
+                    break;
+                }
+            }
+
+            if (!found) {
+                console.log(`No group found with any name variation for: ${groupId}`);
+                return res.status(404).json({ error: 'Group not found' });
+            }
+        } else {
+            console.log(`Found group by ID: ${groupId}`);
+        }
+
+        if (!groupDoc || !groupDoc.exists) {
+            console.log(`No group found for: ${groupId}`);
+            return res.status(404).json({ error: 'Group not found' });
+        }
+
         // Add timestamp for tracking
         updates.lastActivity = new Date().toISOString();
 
-        await db.collection('groups').doc(groupId).update(updates);
+        // Perform the update with error handling
+        try {
+            await groupRef.update(updates);
+            console.log(`Successfully updated group ${groupDoc.id}`);
 
-        res.json({ success: true });
+            // Fetch the updated document to return
+            const updatedDoc = await groupRef.get();
+            console.log(`Updated group data:`, updatedDoc.data());
+
+            res.json({
+                success: true,
+                id: updatedDoc.id,
+                ...updatedDoc.data()
+            });
+        } catch (updateError) {
+            console.error(`Firebase update error for group ${groupDoc.id}:`, updateError);
+            throw new Error(`Firebase update failed: ${updateError.message}`);
+        }
     } catch (error) {
         console.error('Error updating group:', error);
-        res.status(500).json({ error: 'Failed to update group' });
+        res.status(500).json({
+            error: 'Failed to update group',
+            message: error.message
+        });
     }
 });
 

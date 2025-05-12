@@ -3,13 +3,14 @@
 * Main component for the Groups page
 * Created by: Ilias Kladakis
 * Date: April 2025
+* Updated: May 2025 - Added archive confirmation with warnings for unsettled groups
 *
 * This component manages the display of all user groups including:
 * - Fetching groups from Firebase
 * - Filter functionality for viewing different group categories
 * - Group card display in a responsive grid layout
 * - Modal for creating new groups
-* - Archive/unarchive functionality
+* - Archive/unarchive functionality with confirmation for unsettled groups
 * - Multi-currency support
 * - Navigation to view group page
 */
@@ -20,6 +21,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import GroupCard from './comps/groupCard';
 import CreateGroupModal from './comps/createGroupModal';
+import ArchiveConfirmModal from './comps/archiveConfirmModal';
 import styles from './group.module.css';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -33,6 +35,7 @@ export default function GroupsPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
+    const [archiveConfirmGroup, setArchiveConfirmGroup] = useState(null);
     const router = useRouter();
 
     // Fetch current user
@@ -212,11 +215,47 @@ export default function GroupsPage() {
         }
     };
 
+    // Handle archive button click on GroupCard - shows confirmation dialog
+    const handleArchiveClick = (groupId) => {
+        const groupToArchive = groups.find(g => g.id === groupId);
+
+        if (groupToArchive.archived) {
+            // For unarchiving, we don't need a confirmation
+            handleToggleArchive(groupId);
+        } else {
+            // For archiving, we show the confirmation modal
+            setArchiveConfirmGroup(groupToArchive);
+        }
+    };
+
+    // Close the archive confirmation modal
+    const handleCloseArchiveConfirm = () => {
+        setArchiveConfirmGroup(null);
+    };
+
     // Toggle group archived status
     const handleToggleArchive = async (groupId) => {
         try {
             const groupToUpdate = groups.find(g => g.id === groupId);
-            const response = await fetch(`${API_BASE_URL}/groups/${groupId}`, {
+            if (!groupToUpdate) {
+                throw new Error(`Group with ID ${groupId} not found in local state`);
+            }
+
+            // Log what we're trying to update with detailed information
+            console.log(`Attempting to ${groupToUpdate.archived ? 'unarchive' : 'archive'} group:`, {
+                id: groupId,
+                name: groupToUpdate.name,
+                currentArchivedState: groupToUpdate.archived
+            });
+
+            // Try to determine if this is a name or ID issue by checking the format
+            const actualGroupId = groupId === 'roommates' && groupToUpdate.name === 'Roommates' ?
+                groupToUpdate.name.toLowerCase() : groupId;
+
+            console.log(`Using groupId for API call: ${actualGroupId}`);
+
+            // Make the API request
+            const response = await fetch(`${API_BASE_URL}/groups/${actualGroupId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -226,16 +265,40 @@ export default function GroupsPage() {
                 }),
             });
 
-            if (!response.ok) throw new Error('Failed to update group');
+            console.log('Response status:', response.status);
 
+            // Parse the response body
+            const responseData = await response.json();
+            console.log('Response data:', responseData);
+
+            // Check if the response indicates an error
+            if (!response.ok) {
+                throw new Error(responseData.error || responseData.message || 'Failed to update group');
+            }
+
+            // If successful, update local state
             setGroups(prevGroups => prevGroups.map(group =>
                 group.id === groupId
                     ? { ...group, archived: !group.archived }
                     : group
             ));
+
+            // Close the confirmation modal
+            setArchiveConfirmGroup(null);
+
+            // Optionally show success message
+            console.log(`Group ${groupToUpdate.archived ? 'unarchived' : 'archived'} successfully`);
         } catch (err) {
             console.error('Error toggling archive status:', err);
-            alert('Failed to update group. Please try again.');
+
+            // Create a user-friendly error message
+            let errorMessage = 'Failed to update group. Please try again.';
+            if (err.message) {
+                errorMessage = `Error: ${err.message}`;
+            }
+
+            // Show error to user
+            alert(errorMessage);
         }
     };
 
@@ -300,7 +363,7 @@ export default function GroupsPage() {
                                 creationDate: group.creationDate || group.createdAt
                             }}
                             color={getGroupColor(group.balance)}
-                            onToggleArchive={() => handleToggleArchive(group.id)}
+                            onToggleArchive={() => handleArchiveClick(group.id)}
                             onBalanceUpdate={handleBalanceUpdate}
                         />
                     ))}
@@ -322,6 +385,14 @@ export default function GroupsPage() {
                             email: currentUser.email,
                             profileImage: currentUser.profileImage
                         }}
+                    />
+                )}
+
+                {archiveConfirmGroup && (
+                    <ArchiveConfirmModal
+                        group={archiveConfirmGroup}
+                        onClose={handleCloseArchiveConfirm}
+                        onConfirm={handleToggleArchive}
                     />
                 )}
             </div>

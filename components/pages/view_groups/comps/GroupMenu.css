@@ -4,6 +4,7 @@
  * 
  * Created by: Ilias Kladakis
  * Date: May 2025
+ * Updated with new color palette
  */
 
 .group-menu {
@@ -12,7 +13,7 @@
     right: 20px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(44, 21, 0, 0.15);
     width: 250px;
     z-index: 100;
     overflow: hidden;
@@ -32,12 +33,12 @@
 }
 
 .menu-item svg {
-    color: #555;
+    color: #2C1500;
 }
 
 .menu-item span {
     font-size: 15px;
-    color: #333;
+    color: #2C1500;
 }
 
 .menu-divider {
@@ -57,7 +58,8 @@
 .item-label {
     display: block;
     font-size: 13px !important;
-    color: #757575 !important;
+    color: #2C1500 !important;
+    opacity: 0.7;
     margin-bottom: 2px;
 }
 
@@ -67,14 +69,38 @@
 }
 
 .settle-group {
-    color: #4caf50;
+    color: #93AD70;
 }
 
 .settle-group svg {
-    color: #4caf50;
+    color: #93AD70;
 }
 
 .settle-group span {
     font-weight: 500;
-    color: #4caf50;
+    color: #93AD70;
+}
+
+.menu-item.owing {
+    color: #A63A50;
+}
+
+.menu-item.owing svg {
+    color: #A63A50;
+}
+
+.menu-item.owing span {
+    color: #A63A50;
+}
+
+.menu-item.owed {
+    color: #34558B;
+}
+
+.menu-item.owed svg {
+    color: #34558B;
+}
+
+.menu-item.owed span {
+    color: #34558B;
 }

@@ -24,7 +24,7 @@
     align-items: center;
     gap: 5px;
     font-size: 14px;
-    color: #757575;
+    color: #2C1500;
 }
 
 .legend-color {
@@ -34,41 +34,37 @@
 }
 
 .legend-color.owing {
-    background-color: #f44336;
+    background-color: #A63A50;
 }
 
 .legend-color.owed {
-    background-color: #2196f3;
+    background-color: #34558B;
 }
 
 .legend-color.settled {
-    background-color: #4caf50;
+    background-color: #93AD70;
 }
 
 .graph-container {
     flex: 1;
     position: relative;
     padding: 10px 0;
-    overflow: hidden;
-    /* Changed from overflow-y: auto to overflow: hidden */
+    overflow: visible;
 }
 
 .center-line {
     position: absolute;
     top: 10px;
-    /* Adjust to match padding */
     bottom: 10px;
-    /* Adjust to match padding */
     left: 50%;
     width: 1px;
     background-color: #e0e0e0;
     z-index: 0;
 }
 
-/* Add a wrapper for scrollable content */
 .graph-content {
     height: 100%;
-    overflow-y: auto;
+    overflow-y: visible;
     position: relative;
 }
 
@@ -85,7 +81,7 @@
     padding: 0 15px;
     font-size: 16px;
     font-weight: 500;
-    color: #555;
+    color: #2C1500;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -93,7 +89,7 @@
 
 .name-cell.current-user {
     font-weight: 600;
-    color: #333;
+    color: #2C1500;
 }
 
 .graph-cell {
@@ -106,7 +102,7 @@
     padding: 0 15px;
     font-size: 16px;
     font-weight: 500;
-    color: #333;
+    color: #2C1500;
     text-align: right;
 }
 
@@ -118,15 +114,15 @@
 }
 
 .bar.owing {
-    background-color: #f44336;
+    background-color: #A63A50;
 }
 
 .bar.owed {
-    background-color: #2196f3;
+    background-color: #34558B;
 }
 
 .bar.settled {
-    background-color: #4caf50;
+    background-color: #93AD70;
     width: 10px;
     height: 20px;
     border-radius: 10px;
@@ -140,6 +136,6 @@
     justify-content: center;
     align-items: center;
     height: 200px;
-    color: #757575;
+    color: #2C1500;
     text-align: center;
 }

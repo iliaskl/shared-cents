@@ -4,12 +4,69 @@
  * 
  * Created by: Ilias Kladakis
  * Date: May 2025
+ * Updated with new color palette
  */
+
+/* Overlay styling to match other modals */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup container styling to match other modals */
+.popup-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+}
 
 .add-expense-popup {
   width: 550px;
   max-width: 90vw;
   max-height: 85vh;
+}
+
+/* Header styling to match other modals */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.popup-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2C1500;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #777;
+}
+
+.close-button:hover {
+  color: #2C1500;
+  background-color: #F7E4D0;
+  border-radius: 50%;
+}
+
+/* Popup body styling */
+.popup-body {
+  padding: 1.5rem;
 }
 
 .form-group {
@@ -20,7 +77,7 @@
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
-  color: #444;
+  color: #2C1500;
   font-size: 15px;
 }
 
@@ -30,7 +87,13 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 15px;
-  color: #333;
+  color: #2C1500;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #2C1500;
+  background-color: white;
 }
 
 .form-group input::placeholder {
@@ -46,7 +109,7 @@
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #333;
+  color: #2C1500;
   font-weight: 500;
 }
 
@@ -63,7 +126,7 @@
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #444;
+  color: #2C1500;
   pointer-events: none;
   z-index: 1;
 }
@@ -87,7 +150,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-top: 0;
   margin-bottom: 12px;
   font-size: 16px;
-  color: #333;
+  color: #2C1500;
   font-weight: 600;
 }
 
@@ -121,7 +184,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 30px;
   border-radius: 50%;
   background-color: #e0e0e0;
-  color: #555;
+  color: #2C1500;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -131,7 +194,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .member-name {
   font-weight: 500;
-  color: #333;
+  color: #2C1500;
   font-size: 14px;
 }
 
@@ -146,12 +209,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   text-align: right;
   padding: 6px !important;
   font-size: 14px !important;
-  color: #333 !important;
+  color: #2C1500 !important;
 }
 
 .percentage-symbol {
   font-size: 14px;
-  color: #444;
+  color: #2C1500;
   font-weight: 500;
 }
 
@@ -160,13 +223,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   min-width: 70px;
   text-align: right;
   font-weight: 500;
-  color: #333;
+  color: #2C1500;
   font-size: 14px;
 }
 
 .error-message {
-  background-color: #ffebee;
-  color: #d32f2f;
+  background-color: rgba(166, 58, 80, 0.1);
+  color: #A63A50;
   padding: 10px 12px;
   border-radius: 4px;
   margin-bottom: 16px;
@@ -189,7 +252,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .cancel-button {
   background-color: #f5f5f5;
-  color: #333;
+  color: #2C1500;
   border: none;
   border-radius: 4px;
   padding: 10px 18px;
@@ -204,7 +267,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .confirm-button {
-  background-color: #4caf50;
+  background-color: #93AD70;
   color: white;
   border: none;
   border-radius: 4px;
@@ -216,5 +279,32 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .confirm-button:hover {
-  background-color: #43a047;
+  background-color: #85a061;
+}
+
+.status-owing {
+  color: #A63A50;
+}
+
+.status-owed {
+  color: #34558B;
+}
+
+.status-settled {
+  color: #93AD70;
+}
+
+.bg-owing {
+  background-color: #A63A50;
+  color: white;
+}
+
+.bg-owed {
+  background-color: #34558B;
+  color: white;
+}
+
+.bg-settled {
+  background-color: #93AD70;
+  color: white;
 }

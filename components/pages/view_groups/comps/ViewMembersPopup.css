@@ -4,6 +4,7 @@
  * 
  * Created by: Ilias Kladakis
  * Date: May 2025
+ * Updated with new color palette
  */
 
 .view-members-popup {
@@ -47,7 +48,7 @@
     height: 40px;
     border-radius: 50%;
     background-color: #e0e0e0;
-    color: #757575;
+    color: #2C1500;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,7 +64,7 @@
 .member-name {
     font-weight: 500;
     font-size: 16px;
-    color: #333;
+    color: #2C1500;
 }
 
 .member-status {
@@ -71,8 +72,8 @@
 }
 
 .creator-badge {
-    background-color: #f5f5f5;
-    color: #757575;
+    background-color: #F7E4D0;
+    color: #2C1500;
     font-size: 12px;
     padding: 2px 8px;
     border-radius: 10px;
@@ -82,18 +83,35 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #4caf50;
+    color: #93AD70;
     font-size: 14px;
 }
 
 .settled-icon {
-    color: #4caf50;
+    color: #93AD70;
+}
+
+.owing-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #A63A50;
+    font-size: 14px;
+}
+
+.owed-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #34558B;
+    font-size: 14px;
 }
 
 .no-members {
     padding: 20px;
     text-align: center;
-    color: #757575;
+    color: #2C1500;
+    opacity: 0.7;
 }
 
 .popup-actions {
@@ -107,7 +125,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background-color: #f44336;
+    background-color: #A63A50;
     color: white;
     border: none;
     border-radius: 4px;
@@ -119,7 +137,7 @@
 }
 
 .leave-group-button:hover:not(:disabled) {
-    background-color: #d32f2f;
+    background-color: #953445;
 }
 
 .leave-group-button.disabled {
