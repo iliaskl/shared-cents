@@ -37,7 +37,7 @@ export default function ProfilePage() {
                     type="text"
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
-                    placeholder="Enter display name"
+                    placeholder="Enter new display name"
                     style={{
                         width: '100%',
                         padding: '0.5rem',

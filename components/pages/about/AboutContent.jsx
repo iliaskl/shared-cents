@@ -17,7 +17,7 @@ export default function AboutPage() {
                 marginTop: '2rem',
                 paddingTop: '1rem'
             }}></div>
-            <p style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '2rem' }}>Group members:</p>
+            <p style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '2rem' }}>Group members</p>
             <div style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr 1fr',
