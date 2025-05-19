@@ -1,12 +1,9 @@
 .login-form-container {
-    max-width: 400px;
-    margin: 60px auto;
-    padding: 20px;
-    text-align: center;
+  max-width: 450px;
+  margin: 0px auto;
+  padding: 20px;
+  text-align: center;
     
-  }
-  .body{
-    background-color: #e6d0b1;
   }
   
   .login-form {
@@ -30,7 +27,7 @@
   }
   
   .signup-link {
-    margin-top: 20px;
+    margin-top: 40px;
     font-size: 0.9rem;
   }
   
@@ -46,5 +43,27 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+  }
+  
+  .login-box {
+    margin-top: 90px;
+    width: 100%;  
+    max-width: 700px;   
+    padding: 100px;
+    background-color: white;
+    border: 2px solid black;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-form input {
+    padding: 16px;
+    font-size: 1.2rem;
+    background-color: #fefefe; /* subtle white box */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
   }
   

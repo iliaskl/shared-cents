@@ -3,27 +3,8 @@ header {
   background-color: #F7E4D0;
   color: #2C1500;
   width: 100%;
-  min-width: 100%;
-  /* Fail-safe to prevent collapse */
   margin: 0;
   padding: 0;
-  position: relative;
-  /* Ensures proper positioning */
-  box-sizing: border-box;
-}
-
-/* Consolidated selector without excessive !important flags */
-body.view-group-page header {
-  width: 100%;
-  min-width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  left: 0;
-  right: 0;
-  box-sizing: border-box;
-  overflow-x: visible;
 }
 
 .header-container {
@@ -33,13 +14,6 @@ body.view-group-page header {
   justify-content: space-between;
   padding: 20px;
   width: 100%;
-  box-sizing: border-box;
-}
-
-/* Simplified header container styling for view-group-page */
-body.view-group-page .header-container {
-  width: 100%;
-  max-width: none;
   box-sizing: border-box;
 }
 
@@ -151,4 +125,10 @@ nav ul li a:hover {
     list-style: none;
     padding: 10px 0;
   }
+}
+
+.user-icon {
+  font-size: 32px;
+  color: #333;
+  cursor: pointer;
 }
