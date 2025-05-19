@@ -24,7 +24,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ backgroundColor: '#e6d0b1', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#F7E4D0', minHeight: '100vh' }}>
         <div className="login-form-container">
         <LoginForm 
             email={email}

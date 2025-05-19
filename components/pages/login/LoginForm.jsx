@@ -6,10 +6,11 @@ export default function LoginForm({ email, setEmail, password, setPassword, hand
     
     return (
     <div className="login-form-container">
+        <div className="login-box">
         <div className="logo-wrapper">
             <img src="/images/Logo.png" alt="SharedCents Logo" width={120} height={120} className="landing-logo" />
         </div>
-        <h2>ShardedCent User Login</h2>
+        <h2>User Login</h2>
         <form onSubmit={handleLogin} className="login-form">
         <input 
             type="email" 
@@ -30,6 +31,7 @@ export default function LoginForm({ email, setEmail, password, setPassword, hand
         <p className="signup-link">
             Don't have an account? <Link href="/register">Sign up</Link>
         </p>
+        </div>
     </div>
   );
 }

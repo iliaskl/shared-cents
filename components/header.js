@@ -3,6 +3,7 @@ import React from 'react';
 import './header.css';
 import Link from 'next/link';
 import { getAuth, signOut } from "firebase/auth";
+import { FaUserCircle } from "react-icons/fa";
 
 export default function Header({ name }) {
     const [menuOpen, setMenuOpen] = React.useState(false);
@@ -43,12 +44,6 @@ export default function Header({ name }) {
                         <li className="home">
                             <Link href="/home">Home</Link>
                         </li>
-                        <li className="profile">
-                            <Link href="/profile">Profile</Link>
-                        </li>
-                        <li className="about">
-                            <Link href="/about">About Us</Link>
-                        </li>
                         <li className="friends">
                             <Link href="/friends">Friends</Link>
                         </li>
@@ -57,7 +52,7 @@ export default function Header({ name }) {
                         </li>
                         <li className="icon">
                             <div className="account-menu" onClick={toggleMenu}>
-                                account icon
+                                <FaUserCircle className="user-icon" />
                                 {menuOpen && (
                                     <ul className="dropdown">
                                         <li><Link href="/profile">Profile</Link></li>

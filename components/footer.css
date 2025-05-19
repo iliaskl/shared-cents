@@ -27,6 +27,11 @@ footer p {
     margin: 0;
 }
 
+.about{
+    list-style-type: none;
+    padding-left: 10px;
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
     .footer-container {
@@ -34,3 +39,4 @@ footer p {
         gap: 10px;
     }
 }
+
