@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import { app } from "@/lib/firebase";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import styles from './page.module.css';
 import {
   getFirestore,
   collection,
@@ -36,6 +37,7 @@ export default function HomePage() {
         const groupSnapshot = await getDocs(groupsRef);
         const userGroups = [];
         const userGroupIds = [];
+        const groupsMap = {}; // Map to store group names by ID
 
         groupSnapshot.forEach((doc) => {
           const data = doc.data();
@@ -47,13 +49,14 @@ export default function HomePage() {
           if (isMember) {
             userGroups.push({ id: doc.id, ...data });
             userGroupIds.push(doc.id.trim());
+            groupsMap[doc.id] = data.name; // Store group name for reference
           }
         });
 
         setGroups(userGroups);
 
         if (userGroupIds.length === 0) {
-          console.log(" No groups found for UID:", uid);
+          console.log("No groups found for UID:", uid);
           setLoading(false);
           return;
         }
@@ -70,18 +73,14 @@ export default function HomePage() {
         const expenses = [];
         let balance = 0;
 
-        console.log(" Found", expenseSnapshot.size, "expenses for", uid);
+        console.log("Found", expenseSnapshot.size, "expenses for", uid);
 
         expenseSnapshot.forEach((doc) => {
           const data = doc.data();
           const split = data.split || {};
           const userShare = data.amount * (split[uid] || 0);
-
-          console.log("➡️ Expense:", data.description);
-          console.log("   Amount:", data.amount);
-          console.log("   Your share:", userShare);
-          console.log("   Paid by:", data.paidBy);
-          console.log("   Full split map:", split);
+          const groupName = groupsMap[data.groupId] || "Unknown Group";
+          const date = data.date ? new Date(data.date) : new Date();
 
           if (data.paidBy === uid) {
             balance += data.amount - userShare;
@@ -91,90 +90,116 @@ export default function HomePage() {
 
           expenses.push({
             id: doc.id,
-            name: data.description || "Unnamed",
+            name: data.description || "Unnamed Expense",
+            amount: data.amount,
             userShare,
+            groupName,
+            date: date.toLocaleDateString("en-US", {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric'
+            }),
+            groupId: data.groupId
           });
         });
 
         setLatestExpenses(expenses);
         setTotalBalance(balance);
       } catch (err) {
-        console.error(" Error fetching data:", err);
+        console.error("Error fetching data:", err);
       } finally {
         setLoading(false);
       }
     });
-    
 
     return () => unsubscribe();
   }, []);
 
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(amount);
+  };
+
   return (
     <div>
       <Header name={username} />
-      <div className="group-container">
-        <div className="section-1">
-          <div>My Groups</div>
-          <button>Create New Group</button>
+      <div className={styles.groupContainer}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionTitle}>My Groups</div>
+          <button className={styles.createButton}>Create New Group +</button>
         </div>
-        <div className="section-2">
+        <div className={styles.groupGrid}>
           {groups.length === 0 ? (
-            <div className="card-container">
+            <div className={`${styles.cardContainer} ${styles.emptyCard}`}>
               <h2>You are not in any groups yet.</h2>
-              <button onClick={() => {}}>+ Create New Group</button>
+              {/* Removed the duplicate Create New Group button */}
             </div>
           ) : (
             groups.map((group) => (
-              <div className="card-container" key={group.id}>
-                <h2>{group.name}</h2>
-                <h2>
-                    {group.createdAt
-                        ? new Date(group.createdAt.seconds * 1000).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                        })
+              <div className={styles.cardContainer} key={group.id}>
+                <h2 className={styles.groupName}>{group.name}</h2>
+                <h2 className={styles.groupDate}>
+                  {group.createdAt
+                    ? new Date(group.createdAt.seconds * 1000).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
                     : "No date provided"}
                 </h2>
-                <p>
+                <p className={styles.membersList}>
                   Members:{" "}
                   {group.members
                     .map((m) => (typeof m === "string" ? m : m.name))
                     .join(", ")}
                 </p>
-                <button>View Group</button>
-                <button>Delete Group</button>
+                <button className={styles.viewButton}>View Group</button>
+                <button className={styles.deleteButton}>Delete Group</button>
               </div>
             ))
           )}
         </div>
       </div>
 
-      <div className="bottom-section">
-        <div className="recent-activity">
-          <h2>The latest 5 expenses</h2>
-          <div className="activity-box">
+      <div className={styles.bottomSection}>
+        <div className={styles.sectionBox}>
+          <h2 className={styles.sectionBoxTitle}>Latest Expenses</h2>
+          <div className={styles.activityBox}>
             {latestExpenses.length === 0 ? (
-              <p>No expenses found.</p>
+              <p className={styles.emptyState}>No expenses found.</p>
             ) : (
               latestExpenses.map((exp) => (
-                <p key={exp.id}>
-                  {exp.name} <span>${exp.userShare.toFixed(2)}</span>
-                </p>
+                <div key={exp.id} className={styles.expenseItem}>
+                  <div className={styles.expenseDetails}>
+                    <div className={styles.expenseName}>{exp.name}</div>
+                    <div className={styles.expenseMeta}>
+                      <span className={styles.expenseGroup}>{exp.groupName}</span>
+                      <span className={styles.expenseDate}>{exp.date}</span>
+                    </div>
+                  </div>
+                  <div className={styles.expenseAmount}>{formatCurrency(exp.amount)}</div>
+                </div>
               ))
             )}
           </div>
         </div>
 
-        <div className="spending-insights">
-          <h2>Cumulative Group Balance</h2>
-          <div className="activity-box">
-            <p>
+        <div className={styles.sectionBox}>
+          <h2 className={styles.sectionBoxTitle}>Cumulative Group Balance</h2>
+          <div className={styles.activityBox}>
+            <p className={`${styles.balanceStatus} ${totalBalance === 0
+              ? styles.settled
+              : totalBalance > 0
+                ? styles.owed
+                : styles.owing
+              }`}>
               {totalBalance === 0
                 ? "You are settled up."
                 : totalBalance > 0
-                ? `You are owed $${totalBalance.toFixed(2)}`
-                : `You owe $${Math.abs(totalBalance).toFixed(2)}`}
+                  ? `You are owed ${formatCurrency(totalBalance)}`
+                  : `You owe ${formatCurrency(Math.abs(totalBalance))}`}
             </p>
           </div>
         </div>

@@ -1,0 +1,278 @@
+/* Home page specific styles */
+.groupContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    min-height: 500px;
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+.sectionHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sectionTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #34558B;
+}
+
+.createButton {
+    background-color: #93AD70;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.createButton:hover {
+    background-color: #839D60;
+}
+
+.groupGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    padding-bottom: 30px;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    width: 300px;
+    min-height: 280px;
+    background-color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-top: 5px solid #34558B;
+    margin: 0;
+}
+
+.cardContainer:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+}
+
+.groupName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #34558B;
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+
+.groupDate {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #666;
+    margin-top: 0;
+}
+
+.membersList {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.viewButton {
+    background-color: #34558B;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    margin-top: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+}
+
+.deleteButton {
+    background-color: #f5f5f7;
+    color: #A63A50;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    margin-top: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+}
+
+.viewButton:hover,
+.deleteButton:hover {
+    opacity: 0.9;
+}
+
+.emptyCard {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    border-top: none;
+    background-color: #f5f5f7;
+    border: 1px solid #e0e0e0;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.emptyCard h2 {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.emptyCard button {
+    max-width: 200px;
+    background-color: #93AD70;
+    color: white;
+}
+
+/* Bottom section with recent activity and insights */
+.bottomSection {
+    display: flex;
+    flex-direction: row;
+    padding: 0 20px 40px;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.sectionBox {
+    flex: 1;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+.sectionBoxTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #34558B;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.activityBox {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.expenseItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f5f5f7;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.expenseItem:last-child {
+    margin-bottom: 0;
+}
+
+.expenseDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.expenseName {
+    font-weight: 500;
+    color: #333;
+}
+
+.expenseMeta {
+    display: flex;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.expenseGroup {
+    position: relative;
+    padding-right: 12px;
+}
+
+.expenseGroup::after {
+    content: "•";
+    position: absolute;
+    right: 0;
+    color: #999;
+}
+
+.expenseDate {
+    color: #777;
+}
+
+.expenseAmount {
+    font-weight: bold;
+    color: #34558B;
+}
+
+.emptyState {
+    text-align: center;
+    justify-content: center;
+    color: #777;
+    background-color: #f9f9f9;
+    padding: 25px 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.balanceStatus {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 25px;
+    margin: 0;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: #f5f5f7;
+}
+
+.settled {
+    color: #93AD70;
+}
+
+.owed {
+    color: #34558B;
+}
+
+.owing {
+    color: #A63A50;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .bottomSection {
+        flex-direction: column;
+    }
+
+    .groupGrid {
+        justify-content: center;
+    }
+}

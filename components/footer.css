@@ -27,9 +27,28 @@ footer p {
     margin: 0;
 }
 
-.about{
+.about {
     list-style-type: none;
     padding-left: 10px;
+}
+
+/* About Us link styling */
+.about a {
+    color: #2C1500;
+    text-decoration: underline;
+    /* Always underlined to indicate it's clickable */
+    position: relative;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
+    /* Smooth transition for effects */
+}
+
+/* Hover effect - jump up slightly */
+.about a:hover {
+    transform: translateY(-3px);
+    /* Move up slightly on hover */
+    color: #754C24;
+    /* Slightly darker color on hover for better feedback */
 }
 
 /* Mobile styles */
@@ -38,5 +57,9 @@ footer p {
         flex-direction: column;
         gap: 10px;
     }
-}
 
+    .about {
+        padding-left: 0;
+        /* Remove padding on mobile for better centering */
+    }
+}

@@ -1,3 +1,4 @@
+/* React Component */
 "use client";
 import React from 'react';
 import './header.css';
@@ -28,41 +29,39 @@ export default function Header({ name }) {
         <header>
             <div className="header-container">
                 <div className="header-left">
-                    <Link href="/home">
+                    <Link href="/home" className="logo-link">
                         <img
                             src="/images/logo.png"
                             alt="Logo"
                             className="logo"
-                            style={{ width: "100px", height: "auto" }}
                         />
                     </Link>
-                    <h1>Hi {name}</h1>
+                    <h1>Hi {name},</h1>
                 </div>
 
-                <nav>
+                <nav className="main-nav">
                     <ul>
-                        <li className="home">
+                        <li className="nav-item">
                             <Link href="/home">Home</Link>
                         </li>
-                        <li className="friends">
+                        <li className="nav-item">
                             <Link href="/friends">Friends</Link>
                         </li>
-                        <li className="groups">
+                        <li className="nav-item">
                             <Link href="/groups">Groups</Link>
-                        </li>
-                        <li className="icon">
-                            <div className="account-menu" onClick={toggleMenu}>
-                                <FaUserCircle className="user-icon" />
-                                {menuOpen && (
-                                    <ul className="dropdown">
-                                        <li><Link href="/profile">Profile</Link></li>
-                                        <li><button onClick={handleLogout}>Log Out</button></li>
-                                    </ul>
-                                )}
-                            </div>
                         </li>
                     </ul>
                 </nav>
+
+                <div className="account-menu" onClick={toggleMenu}>
+                    <FaUserCircle className="user-icon" />
+                    {menuOpen && (
+                        <ul className="dropdown">
+                            <li><Link href="/profile">Profile</Link></li>
+                            <li><button onClick={handleLogout}>Log Out</button></li>
+                        </ul>
+                    )}
+                </div>
             </div>
         </header>
     );
