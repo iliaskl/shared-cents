@@ -1,11 +1,44 @@
-/* Home page specific styles */
+/* Home page specific styles with updated card layout for horizontal scrolling */
+:root {
+    --background: #ffffff;
+    --page-background: #fcfcfc;
+    --foreground: #2C1500;
+    --primary: #2C1500;
+    --secondary: #93AD70;
+    --accent: #F9EAD9;
+    --danger: #A63A50;
+    --light-gray: #f5f5f7;
+    --border-color: #e0e0e0;
+    --border-radius: 12px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --border-red: #A63A50;
+    --border-blue: #34558B;
+    --border-green: #93AD70;
+    --header-bg: #F9EAD9;
+    --footer-bg: #F9EAD9;
+}
+
+body {
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--page-background);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main container styles */
 .groupContainer {
     display: flex;
     flex-direction: column;
-    background-color: #ffffff;
-    min-height: 500px;
+    background-color: transparent;
     padding: 0 20px;
-    margin-bottom: 30px;
+    margin: 20px auto;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .sectionHeader {
@@ -13,164 +46,231 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 0;
     margin-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0;
 }
 
 .sectionTitle {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #34558B;
+    font-size: 1.75rem;
+    font-weight: normal;
+    color: var(--primary);
+    margin: 0;
 }
 
+/* Larger Create New Group button */
 .createButton {
-    background-color: #93AD70;
-    color: white;
+    background-color: var(--accent);
+    color: var(--primary);
     border: none;
     border-radius: 8px;
-    padding: 10px 20px;
-    font-weight: 600;
+    padding: 12px 24px;
+    /* Larger padding */
+    font-size: 1.05rem;
+    /* Slightly larger text */
+    font-weight: normal;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
 .createButton:hover {
-    background-color: #839D60;
+    background-color: #F5E0C8;
 }
 
+/* Horizontal scrolling group grid */
 .groupGrid {
     display: flex;
-    flex-wrap: wrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f5f5f5;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
     gap: 20px;
-    justify-content: flex-start;
-    padding-bottom: 30px;
+    -ms-overflow-style: none;
+    /* Hide scrollbar in IE and Edge */
 }
 
-.cardContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 25px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
-    width: 300px;
-    min-height: 280px;
-    background-color: white;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border-top: 5px solid #34558B;
+/* Custom scrollbar styles */
+.groupGrid::-webkit-scrollbar {
+    height: 6px;
+}
+
+.groupGrid::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+.groupGrid::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.groupGrid::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+/* Card wrapper styles */
+.cardWrapper {
+    flex: 0 0 280px;
+    width: 280px;
+    max-width: 280px;
+    height: 350px;
     margin: 0;
+    padding: 0;
+    position: relative;
+    /* Add positioning context */
+    border: 4px solid var(--primary);
+    /* Default border color */
+    border-top-width: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: white;
+    overflow: hidden;
 }
 
-.cardContainer:hover {
+/* Hover effect for card wrapper */
+.cardWrapper:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-.groupName {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #34558B;
-    margin-bottom: 5px;
-    margin-top: 0;
+/* Color variants for card wrapper */
+.cardWrapper.red {
+    border-color: var(--border-red);
 }
 
-.groupDate {
-    font-size: 1rem;
-    font-weight: normal;
-    color: #666;
-    margin-top: 0;
+.cardWrapper.blue {
+    border-color: var(--border-blue);
 }
 
-.membersList {
-    color: #555;
-    margin-bottom: 20px;
+.cardWrapper.green {
+    border-color: var(--border-green);
 }
 
-.viewButton {
-    background-color: #34558B;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
-    margin-top: 5px;
-    font-weight: 500;
-    cursor: pointer;
-    width: 100%;
+/* Hide the original card borders */
+.cardWrapper>div {
+    border: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
-.deleteButton {
-    background-color: #f5f5f7;
-    color: #A63A50;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
-    margin-top: 5px;
-    font-weight: 500;
-    cursor: pointer;
-    width: 100%;
+/* Ensure GroupCard contents display correctly inside our wrapper */
+.cardWrapper :global(.header) {
+    padding: 1rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-right: 2.5rem !important;
 }
 
-.viewButton:hover,
-.deleteButton:hover {
-    opacity: 0.9;
+.cardWrapper :global(.groupName) {
+    margin: 0 !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    color: #2C1500 !important;
 }
 
+.cardWrapper :global(.dateInfo) {
+    padding: 0 1rem !important;
+    font-size: 1rem !important;
+    color: #2C1500 !important;
+}
+
+.cardWrapper :global(.balanceInfo) {
+    padding: 2rem !important;
+    text-align: center !important;
+    font-weight: 700 !important;
+    font-size: 1.8rem !important;
+}
+
+.cardWrapper.red :global(.balanceInfo) {
+    color: var(--border-red) !important;
+}
+
+.cardWrapper.blue :global(.balanceInfo) {
+    color: var(--border-blue) !important;
+}
+
+.cardWrapper.green :global(.balanceInfo) {
+    color: var(--border-green) !important;
+}
+
+.cardWrapper :global(.buttonsContainer) {
+    padding: 1.5rem !important;
+    gap: 0.75rem !important;
+}
+
+.cardWrapper :global(.viewButton) {
+    padding: 0.75rem !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    font-size: 1.1rem !important;
+    background-color: #34558B !important;
+}
+
+.cardWrapper :global(.viewButton:hover) {
+    background-color: #294272 !important;
+}
+
+.cardWrapper :global(.archiveButton) {
+    position: absolute !important;
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+}
+
+/* Empty state card */
 .emptyCard {
     width: 100%;
+    min-width: 100%;
     align-items: center;
     text-align: center;
-    border-top: none;
-    background-color: #f5f5f7;
-    border: 1px solid #e0e0e0;
-    height: 250px;
+    background-color: var(--light-gray);
+    border: 1px solid var(--border-color);
+    height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: var(--border-radius);
 }
 
 .emptyCard h2 {
-    margin-bottom: 20px;
+    margin: 0;
     color: #555;
-}
-
-.emptyCard button {
-    max-width: 200px;
-    background-color: #93AD70;
-    color: white;
+    font-weight: normal;
+    font-size: 1.1rem;
 }
 
 /* Bottom section with recent activity and insights */
 .bottomSection {
     display: flex;
     flex-direction: row;
-    padding: 0 20px 40px;
-    gap: 30px;
-    margin-bottom: 60px;
+    gap: 20px;
+    margin-bottom: 40px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .sectionBox {
     flex: 1;
     background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
     padding: 0;
     box-sizing: border-box;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
     overflow: hidden;
 }
 
 .sectionBoxTitle {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #34558B;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 20px;
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: var(--primary);
+    margin: 0;
+    padding: 15px 20px;
     background-color: #f9f9f9;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .activityBox {
@@ -183,11 +283,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    margin-bottom: 10px;
-    background-color: #f5f5f7;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background-color: var(--light-gray);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
 }
 
 .expenseItem:last-child {
@@ -197,18 +297,19 @@
 .expenseDetails {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
 }
 
 .expenseName {
-    font-weight: 500;
-    color: #333;
+    font-weight: normal;
+    color: var(--primary);
+    font-size: 0.95rem;
 }
 
 .expenseMeta {
     display: flex;
     gap: 10px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #666;
 }
 
@@ -229,31 +330,27 @@
 }
 
 .expenseAmount {
-    font-weight: bold;
-    color: #34558B;
+    font-weight: normal;
+    color: var(--primary);
 }
 
 .emptyState {
     text-align: center;
     justify-content: center;
     color: #777;
-    background-color: #f9f9f9;
-    padding: 25px 15px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    padding: 20px 15px;
+    font-size: 0.95rem;
 }
 
 .balanceStatus {
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: normal;
     text-align: center;
-    padding: 25px;
+    padding: 20px 15px;
     margin: 0;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    background-color: #f5f5f7;
 }
 
+/* Keep these colors for the balance section as requested */
 .settled {
     color: #93AD70;
 }
@@ -273,6 +370,14 @@
     }
 
     .groupGrid {
-        justify-content: center;
+        padding-bottom: 20px;
+    }
+
+    .cardWrapper {
+        flex: 0 0 260px !important;
+        width: 260px !important;
+        min-width: 260px !important;
+        max-width: 260px !important;
+        height: 330px !important;
     }
 }

@@ -4,6 +4,7 @@
  * 
  * Created by: Ilias Kladakis
  * Date: May 2025
+ * Updated: Showing $0.00 instead of NaN when no expenses exist
  */
 
 import React from 'react';
@@ -11,6 +12,11 @@ import './BalanceGraph.css';
 
 const BalanceGraph = ({ members, currentUserId, currency = 'USD' }) => {
     const formatCurrency = (amount) => {
+        // Handle NaN, undefined or null values
+        if (isNaN(amount) || amount === undefined || amount === null) {
+            amount = 0;
+        }
+
         const currencyMap = {
             'USD': { locale: 'en-US', currency: 'USD' },
             'EUR': { locale: 'de-DE', currency: 'EUR' },
@@ -36,13 +42,20 @@ const BalanceGraph = ({ members, currentUserId, currency = 'USD' }) => {
         }).format(amount);
     };
 
+    // Process members to ensure all have balance property
+    const processedMembers = members.map(member => ({
+        ...member,
+        balance: member.balance || 0 // Ensure balance is at least 0 if undefined/null
+    }));
+
     // Find the maximum absolute balance for scaling
     const maxAbsBalance = Math.max(
-        ...members.map(member => Math.abs(member.balance))
+        ...processedMembers.map(member => Math.abs(member.balance)),
+        0.01 // Ensure we don't divide by zero if all balances are 0
     );
 
     // Sort members by balance (highest to lowest)
-    const sortedMembers = [...members].sort((a, b) => b.balance - a.balance);
+    const sortedMembers = [...processedMembers].sort((a, b) => b.balance - a.balance);
 
     return (
         <div className="balance-graph">
