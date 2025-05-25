@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import { getAuth } from "firebase/auth";
 import { app } from "@/lib/firebase";
 import FriendsContent from '@/components/pages/friends/FriendsContent';
+import FriendCard from '@/components/pages/friends/FriendCard';
 
 /*export default function FriendsPage() {
   const [username, setUsername] = useState("");
@@ -18,6 +19,9 @@ import FriendsContent from '@/components/pages/friends/FriendsContent';
     });
     return () => unsubscribe();
   }, []);*/
+
+const pendingRequests = ['alice@email.com', 'bob@email.com'];
+const friendsList = ['John Doe', 'Jane Smith'];
 
 export default function FriendsPage() {
   return (
@@ -128,11 +132,15 @@ export default function FriendsPage() {
             Your Friends
           </h2>
           <ul>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ fontSize: '1rem', fontWeight: '500', color: '#333', marginBottom: '0.5rem' }}>John Doe</li>
-              <li style={{ fontSize: '1rem', fontWeight: '500', color: '#333' }}>Jane Smith</li>
-            </ul>
-            {/* Replace with dynamic content later */}
+            {pendingRequests.map((email, idx) => (
+              <FriendCard key={idx} email={email} />
+            ))}
+          </ul>
+
+          <ul>
+            {friendsList.map((name, idx) => (
+              <FriendCard key={idx} name={name} />
+            ))}
           </ul>
         </div>
       </main>
